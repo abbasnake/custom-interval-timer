@@ -1,0 +1,60 @@
+<template>
+  <div class="container">
+    <AppTitlePage title="SETUP" />
+    <template v-for="(block, index) in timerBlocks">
+      <AppTimerBlock
+        :block="block"
+        :blockIndex="index"
+        :key="index"
+      />
+    </template>
+    <AppSets />
+    <div class="container__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
+    <AppButtonMain title="START" @onClick="runTimer"/>
+  </div>
+</template>
+
+<script>
+import { stringifyTimerObject } from '../utils/helpers'
+
+export default {
+  name: 'Setup',
+  components: {
+    AppTitlePage: () => import('../components/AppTitlePage'),
+    AppTimerBlock: () => import('../components/AppTimerBlock'),
+    AppButtonMain: () => import('../components/AppButtonMain'),
+    AppSets: () => import('../components/AppSets')
+  },
+  computed: {
+    totalTime () {
+      return this.$store.getters.totalTime
+    },
+    timerBlocks () {
+      return this.$store.getters.timerBlocks
+    },
+    sets () {
+      return this.$store.getters.sets
+    }
+  },
+  methods: {
+    runTimer () {
+      this.$router.push({ path: '/run' })
+    },
+    stringifyTimer (timerObject) {
+      return stringifyTimerObject(timerObject)
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.container {
+  width: 100%;
+  padding: 10px;
+
+  &__total {
+    font-size: 26px;
+    text-align: center;
+  }
+}
+</style>

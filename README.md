@@ -34,3 +34,24 @@ npm run test:e2e
 ```
 npm run test:unit
 ```
+
+### TODOS
+- when holding + or - increment decrement inceases (@mousedown, perhaps no need for @click)
+- unit tests
+- e2e tests
+- design
+- pwa stuff
+- object immutability (Object.freeze...?)
+- running screen countdown timer should be immutable
+- loops can be as components that can be mixed and matched and saved and loaded
+- when custom timer down to 0 and hold decrement the option to delete is available
+- perhaps need to add number of block, otherwise when many blocks can get confusing
+- desktop mode
+- css constants (background color, text color etc)
+- make github page
+- remove button outline for corner buttons
+- swipe functionality
+- delete inner timer rom button with arrow
+- primary/secondary block color
+- global repeat time
+- maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
