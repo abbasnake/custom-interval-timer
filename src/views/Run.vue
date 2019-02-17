@@ -25,6 +25,8 @@ export default {
   name: 'Setup',
   data () {
     return {
+      audioWhistle: new Audio(require('../assets/whistle.wav')),
+      audioBeep: new Audio(require('../assets/beep.wav')),
       totalSequence: null,
       currentBlockIndex: 0,
       currentTimerIndex: 0,
@@ -68,8 +70,10 @@ export default {
     },
     setCurrentTimer (timerObject) {
       if (timerIsFinished(timerObject)) {
+        this.audioWhistle.play()
         this.switchToNextTimer()
       } else {
+        this.audioBeep.play()
         this.currentTimer = timerObject
       }
     },
