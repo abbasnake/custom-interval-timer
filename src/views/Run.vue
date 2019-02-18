@@ -56,7 +56,6 @@ export default {
       this.timerIsRunning = true
       this.decrementTotalTime()
       this.decrementCurrentTimer()
-      console.log('LOOP-----')
     })
   },
   methods: {
@@ -73,7 +72,9 @@ export default {
         this.audioWhistle.play()
         this.switchToNextTimer()
       } else {
-        this.audioBeep.play()
+        if (timerObject.m === 0 && timerObject.s < 4) {
+          this.audioBeep.play()
+        }
         this.currentTimer = timerObject
       }
     },

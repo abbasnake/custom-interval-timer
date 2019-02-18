@@ -55,3 +55,4 @@ npm run test:unit
 - primary/secondary block color
 - global repeat time
 - maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
+- check mp3 playback (for decreased sundfile size)
