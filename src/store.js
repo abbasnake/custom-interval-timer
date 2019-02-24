@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {
   returnTotalTime,
-  returnTotalSequence,
   cloneObject,
   blockColorArrayLength,
   returnTotalTimerCount

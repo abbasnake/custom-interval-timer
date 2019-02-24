@@ -1,6 +1,6 @@
 <template>
   <div class="containerSets">
-    <div class="containerSets__title">SETS</div>
+    <h3 class="containerSets__title">SETS</h3>
     <div class="containerSets__configuration">
       <AppButtonSvg
         orientation="left"

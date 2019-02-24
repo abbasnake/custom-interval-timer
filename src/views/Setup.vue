@@ -48,9 +48,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .container {
   width: 100%;
+  min-height: 100vh;
   padding: 10px;
+  background-color: $black;
 
   &__total {
     font-size: 26px;

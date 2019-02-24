@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" :style="{ backgroundColor: currentBlockColor }">
     <AppTitlePage title="RUN" />
     <div>TIMER IS RUNNING: {{ timerIsRunning }}</div>
     <div>TOTAL TIME LEFT: {{ stringifyTimer(totalTimeLeft) }}</div>
@@ -18,7 +18,8 @@ import {
   cloneObject,
   setAndReturnInterval,
   decrementTimerObject,
-  timerIsFinished
+  timerIsFinished,
+  returnBlockColorByIndex
 } from '../utils/helpers'
 
 export default {
@@ -34,7 +35,8 @@ export default {
       timerIsRunning: false,
       currentTimer: null,
       totalTimeLeft: null,
-      looper: null
+      looper: null,
+      sets: null
     }
   },
   components: {
@@ -43,6 +45,9 @@ export default {
   computed: {
     totalTimerCount () {
       return this.$store.getters.totalTimerCount
+    },
+    currentBlockColor () {
+      return returnBlockColorByIndex(this.totalSequence[this.currentBlockIndex].colorIndex);
     }
   },
   created () {
@@ -50,6 +55,7 @@ export default {
     this.totalSequence = this.$store.getters.timerBlocks
     this.currentTimer = cloneObject(this.totalSequence[0].timers[0])
     this.currentBlockRepetitionsLeft = this.totalSequence[0].repetitions
+    this.sets = this.$store.getters.sets
   },
   mounted () {
     this.looper = setAndReturnInterval(() => {
@@ -57,6 +63,9 @@ export default {
       this.decrementTotalTime()
       this.decrementCurrentTimer()
     })
+  },
+  beforeDestroy () {
+    clearInterval(this.looper)
   },
   methods: {
     decrementTotalTime () {
@@ -87,12 +96,23 @@ export default {
           this.startNextCurrentBlockRepetition()
         } else {
           if (this.isLastTimerBlock()) {
-            this.finishSequence()
+            if (this.sets > 1) {
+              this.startNextSet()
+            } else {
+              this.finishSequence()
+            }
           } else {
             this.moveToNextBlock()
           }
         }
       }
+    },
+    startNextSet () {
+      this.sets--
+      this.currentBlockIndex = 0
+      this.currentTimerIndex = 0
+      this.currentTimer = this.getCurrentTimerFromSequnece()
+      this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
     },
     areMoreRepetitionsLeft () {
       return this.currentBlockRepetitionsLeft > 1
@@ -173,9 +193,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .container {
+  background-color: $black;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

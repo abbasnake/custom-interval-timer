@@ -12,9 +12,17 @@
 @import './scss/variables';
 @import './scss/reset';
 
+@font-face {
+  font-family: 'Saira Condensed';
+  src: url('./assets/fonts/SairaCondensed-Regular.ttf');
+  font-style: normal;
+  font-weight: 400;
+}
+
 #app {
-  background-color: $black;
   min-height: 100%;
   width: 100%;
+  max-width: 767px;
+  margin: 0 auto;
 }
 </style>
