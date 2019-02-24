@@ -14,7 +14,7 @@ export default {
     },
     width: {
       type: String,
-      default: '90%'
+      default: '100%'
     }
   },
   methods: {
@@ -31,9 +31,9 @@ export default {
 <style lang="scss" scoped>
 .button {
   background-color: transparent;
-  border-radius: 5px;
+  border-radius: 10px;
   display: block;
-  height: 50px;
+  height: 70px;
   margin: 10px auto;
   font-size: 30px;
 }

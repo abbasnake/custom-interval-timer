@@ -38,7 +38,7 @@ export default {
   props: {
     size: {
       type: Number,
-      default: 38
+      default: 30
     },
     fill: {
       type: String,

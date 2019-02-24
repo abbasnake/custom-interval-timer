@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <AppTitlePage title="SETUP" />
+    <!-- <AppTitlePage title="SETUP" /> -->
+    <AppSets />
     <template v-for="(block, index) in timerBlocks">
       <AppTimerBlock
         :block="block"
@@ -8,7 +9,6 @@
         :key="index"
       />
     </template>
-    <AppSets />
     <div class="container__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
     <AppButtonMain title="START" @onClick="runTimer"/>
   </div>
@@ -53,7 +53,7 @@ export default {
 .container {
   width: 100%;
   min-height: 100vh;
-  padding: 10px;
+  padding: 20px;
   background-color: $black;
 
   &__total {

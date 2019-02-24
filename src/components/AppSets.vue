@@ -42,10 +42,11 @@ export default {
 
 <style lang="scss" scoped>
 .containerSets {
-  border: 1px solid grey;
+  // border: 1px solid grey;
+  // border-radius: 10px;
 
   &__title {
-    font-size: 50px;
+    font-size: 30px;
     text-align: center;
   }
 
