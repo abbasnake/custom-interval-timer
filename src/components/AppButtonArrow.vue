@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  name: 'AppButtonSvg',
+  name: 'AppButtonArrow',
   props: {
     size: {
       type: Number,

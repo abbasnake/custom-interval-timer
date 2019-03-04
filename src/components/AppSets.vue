@@ -2,7 +2,7 @@
   <div class="containerSets">
     <h3 class="containerSets__title">SETS</h3>
     <div class="containerSets__configuration">
-      <AppButtonSvg
+      <AppButtonArrow
         orientation="left"
         fill="grey"
         @onClick="updateSets(sets - 1)"
@@ -10,7 +10,7 @@
       <span class="containerSets__configuration__text">
         {{ sets }}x
       </span>
-      <AppButtonSvg
+      <AppButtonArrow
         orientation="right"
         fill="grey"
         @onClick="updateSets(sets + 1)"
@@ -23,7 +23,7 @@
 export default {
   name: 'AppSets',
   components: {
-    AppButtonSvg: () => import('../components/AppButtonSvg')
+    AppButtonArrow: () => import('../components/AppButtonArrow')
   },
   computed: {
     sets () {

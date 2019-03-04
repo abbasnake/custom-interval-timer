@@ -1,12 +1,12 @@
 <template>
   <div class="containerRepetitions">
-    <AppButtonSvg
+    <AppButtonArrow
         orientation="left"
         :fill="color"
         @onClick="updateRepetitions(repetitions - 1)"
       />
     <span class="containerRepetitions__text">{{ repetitions }}x</span>
-    <AppButtonSvg
+    <AppButtonArrow
         orientation="right"
         :fill="color"
         @onClick="updateRepetitions(repetitions + 1)"
@@ -33,7 +33,7 @@ export default {
     }
   },
   components: {
-    AppButtonSvg: () => import('./AppButtonSvg')
+    AppButtonArrow: () => import('./AppButtonArrow')
   },
   methods: {
     updateRepetitions (repetitions) {

@@ -57,3 +57,4 @@ npm run test:unit
 - maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
 - check mp3 playback (for decreased soundfile size)
 - add placeholder/lazy loading
+- refactor SVG buttons to use one component and then create a component for each svg

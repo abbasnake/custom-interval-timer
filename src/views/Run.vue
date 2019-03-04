@@ -1,13 +1,28 @@
 <template>
   <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <AppTitlePage title="RUN" />
+    <!-- <AppTitlePage title="RUN" />
     <div>TIMER IS RUNNING: {{ timerIsRunning }}</div>
     <div>TOTAL TIME LEFT: {{ stringifyTimer(totalTimeLeft) }}</div>
     <div>TOTAL TIMER COUNT: {{ totalTimerCount }}</div>
+    <div>REMAINING SETS: {{ sets }}</div>
     <div>Current block repetitions left: {{ currentBlockRepetitionsLeft }}</div>
     <div>Block Num - {{ currentBlockIndex + 1 }}/{{ totalSequence.length }}</div>
-    <div>Current Timer Num - {{ currentTimerIndex + 1 }}/{{ totalSequence[currentBlockIndex].timers.length }}</div>
-    <div>Current Timer: {{ stringifyTimer(currentTimer) }}</div>
+    <div>Current Timer Num - {{ currentTimerIndex + 1 }}/{{ totalSequence[currentBlockIndex].timers.length }}</div> -->
+    <div>SETS: {{ sets }}x</div>
+    <div class="container__timer">{{ stringifyTimer(currentTimer) }}</div>
+    <div>Current block repetitions left: {{ currentBlockRepetitionsLeft }}/{{ totalSequence[currentBlockIndex].repetitions }}</div>
+    <AppBlockProgressBar
+      :currentTimerIndex="currentTimerIndex + 1"
+      :totalTimerCount="totalSequence[currentBlockIndex].timers.length"
+    />
+    <AppButtonPause
+      class="container__playPause"
+      v-if="timerIsRunning"
+    />
+    <AppButtonPlay
+      class="container__playPause"
+      v-else
+    />
   </div>
 </template>
 
@@ -40,7 +55,10 @@ export default {
     }
   },
   components: {
-    AppTitlePage: () => import('../components/AppTitlePage')
+    AppTitlePage: () => import('../components/AppTitlePage'),
+    AppBlockProgressBar: () => import('../components/AppBlockProgressBar'),
+    AppButtonPause: () => import('../components/AppButtonPause'),
+    AppButtonPlay: () => import('../components/AppButtonPlay')
   },
   computed: {
     totalTimerCount () {
@@ -203,5 +221,16 @@ export default {
   flex-direction: column;
   align-items: center;
   padding: 20px 0;
+
+  &__timer {
+    font-size: 9rem;
+    margin: 40px 0;
+  }
+
+  &__playPause {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
 }
 </style>

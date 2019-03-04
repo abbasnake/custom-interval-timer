@@ -1,11 +1,9 @@
 <template>
   <div class="containerBlock" :style="renderBorder()">
-    <AppButtonCorner
+    <AppButtonRemoveBlock
       class="containerBlock__topLeftButton"
-      title="-"
       :colorIndex="block.colorIndex"
-      position="topLeft"
-      @onClick="removeBlock"
+      :blockIndex="blockIndex"
     />
     <AppButtonColorWheel
       class="containerBlock__colorWheel"
@@ -19,12 +17,10 @@
     <AppTimerBlockTimer :block="block" :blockIndex="blockIndex" />
     <AppTimerBlockAddRemoveTimer :blockIndex="blockIndex" />
     <div class="containerBlock__sequenceNumber">{{ blockIndex + 1 }}</div>
-    <AppButtonCorner
+    <AppButtonAddBlock
       class="containerBlock__bottomRightButton"
-      title="+"
       :colorIndex="block.colorIndex"
-      position="bottomRight"
-      @onClick="addBlock"
+      :blockIndex="blockIndex"
     />
   </div>
 </template>
@@ -37,7 +33,8 @@ export default {
   components: {
     AppTimerBlockRepetitions: () => import('./AppTimerBlockRepetitions'),
     AppTimerBlockTimer: () => import('./AppTimerBlockTimer'),
-    AppButtonCorner: () => import('./AppButtonCorner'),
+    AppButtonRemoveBlock: () => import('./AppButtonRemoveBlock'),
+    AppButtonAddBlock: () => import('./AppButtonAddBlock'),
     AppButtonColorWheel: () => import('./AppButtonColorWheel'),
     AppTimerBlockAddRemoveTimer: () => import('./AppTimerBlockAddRemoveTimer')
   },
@@ -60,12 +57,6 @@ export default {
     },
     addTimerToBlock () {
       this.$store.commit('addTimerToBlock', this.blockIndex)
-    },
-    removeBlock () {
-      this.$store.commit('removeBlockByIndex', this.blockIndex)
-    },
-    addBlock () {
-      this.$store.commit('addNewBlock', this.blockIndex)
     }
   }
 }

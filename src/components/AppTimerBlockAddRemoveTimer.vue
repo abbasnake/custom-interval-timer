@@ -1,12 +1,12 @@
 <template>
   <div class="containerAddRemoveTimer">
-    <AppButtonSvg
+    <AppButtonArrow
       class="containerAddRemoveTimer__button"
       orientation="up"
       fill="grey"
       @onClick="removeLastTimerFromBlock"
     />
-    <AppButtonSvg
+    <AppButtonArrow
       class="containerAddRemoveTimer__button"
       orientation="down"
       fill="grey"
@@ -19,7 +19,7 @@
 export default {
   name: 'AppTimerBlockAddRemoveTimer',
   components: {
-    AppButtonSvg: () => import('./AppButtonSvg')
+    AppButtonArrow: () => import('./AppButtonArrow')
   },
   props: {
     blockIndex: {

@@ -2,7 +2,7 @@
   <div>
     <template v-for="(timer, index) in block.timers">
       <div class="containerTimer" :key="index">
-        <AppButtonSvg
+        <AppButtonArrow
           orientation="left"
           :fill="renderFill()"
           @onClick="decrementOrRemove(index, timer)"
@@ -11,7 +11,7 @@
         <span class="containerTimer__time" :style="renderColor()">
           {{ stringifyTimer(timer) }}
         </span>
-        <AppButtonSvg
+        <AppButtonArrow
           orientation="right"
           :fill="renderFill()"
           @onClick="increment(index, timer)"
@@ -42,7 +42,7 @@ export default {
     }
   },
   components: {
-    AppButtonSvg: () => import('./AppButtonSvg')
+    AppButtonArrow: () => import('./AppButtonArrow')
   },
   methods: {
     decrementOrRemove (timerIndex, timer) {
