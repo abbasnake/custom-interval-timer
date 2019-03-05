@@ -52,7 +52,7 @@ npm run test:unit
 - remove button outline for corner buttons
 - swipe functionality
 - delete inner timer rom button with arrow
-- primary/secondary block color
+- primary/secondary block color (or some progress bar)
 - global repeat time
 - maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
 - check mp3 playback (for decreased soundfile size)

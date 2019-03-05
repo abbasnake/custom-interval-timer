@@ -15,13 +15,20 @@
       :currentTimerIndex="currentTimerIndex + 1"
       :totalTimerCount="totalSequence[currentBlockIndex].timers.length"
     />
+    <AppButtonReset
+      class="container__reset"
+      v-show="!timerIsRunning"
+      @onClick="restartTimer"
+    />
     <AppButtonPause
       class="container__playPause"
-      v-if="timerIsRunning"
+      v-show="timerIsRunning"
+      @onClick="stopInterval"
     />
     <AppButtonPlay
       class="container__playPause"
-      v-else
+      v-show="!timerIsRunning"
+      @onClick="runLoop"
     />
   </div>
 </template>
@@ -38,7 +45,7 @@ import {
 } from '../utils/helpers'
 
 export default {
-  name: 'Setup',
+  name: 'Run',
   data () {
     return {
       audioWhistle: new Audio(require('../assets/whistle.wav')),
@@ -58,34 +65,47 @@ export default {
     AppTitlePage: () => import('../components/AppTitlePage'),
     AppBlockProgressBar: () => import('../components/AppBlockProgressBar'),
     AppButtonPause: () => import('../components/AppButtonPause'),
-    AppButtonPlay: () => import('../components/AppButtonPlay')
+    AppButtonPlay: () => import('../components/AppButtonPlay'),
+    AppButtonReset: () => import('../components/AppButtonReset')
   },
   computed: {
     totalTimerCount () {
       return this.$store.getters.totalTimerCount
     },
     currentBlockColor () {
-      return returnBlockColorByIndex(this.totalSequence[this.currentBlockIndex].colorIndex);
+      return returnBlockColorByIndex(this.totalSequence[this.currentBlockIndex].colorIndex)
     }
   },
   created () {
-    this.totalTimeLeft = this.$store.getters.totalTime
-    this.totalSequence = this.$store.getters.timerBlocks
-    this.currentTimer = cloneObject(this.totalSequence[0].timers[0])
-    this.currentBlockRepetitionsLeft = this.totalSequence[0].repetitions
-    this.sets = this.$store.getters.sets
+    this.setupTimer()
   },
   mounted () {
-    this.looper = setAndReturnInterval(() => {
-      this.timerIsRunning = true
-      this.decrementTotalTime()
-      this.decrementCurrentTimer()
-    })
+    this.runLoop()
   },
   beforeDestroy () {
     clearInterval(this.looper)
   },
   methods: {
+    runLoop () {
+      this.looper = setAndReturnInterval(() => {
+        this.timerIsRunning = true
+        this.decrementTotalTime()
+        this.decrementCurrentTimer()
+      })
+    },
+    restartTimer () {
+      this.setupTimer()
+      this.runLoop()
+    },
+    setupTimer () {
+      this.currentBlockIndex = 0
+      this.currentTimerIndex = 0
+      this.totalTimeLeft = this.$store.getters.totalTime
+      this.totalSequence = this.$store.getters.timerBlocks
+      this.currentTimer = cloneObject(this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex])
+      this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
+      this.sets = this.$store.getters.sets
+    },
     decrementTotalTime () {
       this.totalTimeLeft = decrementTimerObject(this.totalTimeLeft)
     },
@@ -181,31 +201,31 @@ export default {
     },
     stringifyTimer (timerObject) {
       return stringifyTimerObject(timerObject)
-    },
-    renderButtonTitle () {
-      return this.timerIsRunning ? 'PAUSE' : 'START'
-    },
-    renderTimerTitle (index) {
-      if (index === 0) {
-        return 'PREPERATION'
-      }
-      if (index === this.totalSequence.length - 1) {
-        return 'COOLDOWN'
-      }
-
-      return `CUSTOM TIMER ${index}`
-    },
-    startOrPauseTimer () {
-      this.timerIsRunning ? this.stopInterval() : this.startInterval()
-    },
-    restartTimer () {
-      if (this.timerIsRunning) {
-        this.stopInterval()
-      }
-
-      this.updateTimer(this.initialTotalTime)
-      this.startInterval()
     }
+    // renderButtonTitle () {
+    //   return this.timerIsRunning ? 'PAUSE' : 'START'
+    // },
+    // renderTimerTitle (index) {
+    //   if (index === 0) {
+    //     return 'PREPERATION'
+    //   }
+    //   if (index === this.totalSequence.length - 1) {
+    //     return 'COOLDOWN'
+    //   }
+
+    //   return `CUSTOM TIMER ${index}`
+    // }
+    // startOrPauseTimer () {
+    //   this.timerIsRunning ? this.stopInterval() : this.startInterval()
+    // },
+    // restartTimer () {
+    //   if (this.timerIsRunning) {
+    //     this.stopInterval()
+    //   }
+
+    //   this.updateTimer(this.initialTotalTime)
+    //   this.startInterval()
+    // }
   }
 }
 </script>
@@ -225,6 +245,12 @@ export default {
   &__timer {
     font-size: 9rem;
     margin: 40px 0;
+  }
+
+  &__reset {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
   }
 
   &__playPause {

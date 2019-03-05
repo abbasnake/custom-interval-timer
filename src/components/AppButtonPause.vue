@@ -15,7 +15,7 @@ export default {
   name: 'AppButtonPause',
   methods: {
     pauseTimer () {
-			console.log('TCL: pause -> pauseTimer')
+			this.$emit('onClick')
     }
   }
 }

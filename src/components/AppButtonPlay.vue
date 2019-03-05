@@ -14,7 +14,7 @@ export default {
   name: 'AppButtonPlay',
   methods: {
     playTimer () {
-		console.log('TCL: playTimer -> playTimer')
+      this.$emit('onClick')
     }
   }
 }
