@@ -1,16 +1,8 @@
 <template>
   <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <!-- <AppTitlePage title="RUN" />
-    <div>TIMER IS RUNNING: {{ timerIsRunning }}</div>
-    <div>TOTAL TIME LEFT: {{ stringifyTimer(totalTimeLeft) }}</div>
-    <div>TOTAL TIMER COUNT: {{ totalTimerCount }}</div>
-    <div>REMAINING SETS: {{ sets }}</div>
-    <div>Current block repetitions left: {{ currentBlockRepetitionsLeft }}</div>
-    <div>Block Num - {{ currentBlockIndex + 1 }}/{{ totalSequence.length }}</div>
-    <div>Current Timer Num - {{ currentTimerIndex + 1 }}/{{ totalSequence[currentBlockIndex].timers.length }}</div> -->
     <div>SETS: {{ sets }}x</div>
     <div class="container__timer">{{ stringifyTimer(currentTimer) }}</div>
-    <div>Current block repetitions left: {{ currentBlockRepetitionsLeft }}/{{ totalSequence[currentBlockIndex].repetitions }}</div>
+    <div>{{ currentBlockRepetitionsLeft }}x</div>
     <AppBlockProgressBar
       :currentTimerIndex="currentTimerIndex + 1"
       :totalTimerCount="totalSequence[currentBlockIndex].timers.length"
@@ -23,7 +15,7 @@
     <AppButtonPause
       class="container__playPause"
       v-show="timerIsRunning"
-      @onClick="stopInterval"
+      @onClick="timerIsRunning = false"
     />
     <AppButtonPlay
       class="container__playPause"
@@ -34,7 +26,7 @@
 </template>
 
 <script>
-import { clearInterval } from 'timers'
+import { clearInterval, setTimeout } from 'timers'
 import {
   stringifyTimerObject,
   cloneObject,
@@ -57,7 +49,6 @@ export default {
       timerIsRunning: false,
       currentTimer: null,
       totalTimeLeft: null,
-      looper: null,
       sets: null
     }
   },
@@ -83,15 +74,27 @@ export default {
     this.runLoop()
   },
   beforeDestroy () {
-    clearInterval(this.looper)
+    this.timerIsRunning = false
   },
   methods: {
     runLoop () {
-      this.looper = setAndReturnInterval(() => {
-        this.timerIsRunning = true
-        this.decrementTotalTime()
-        this.decrementCurrentTimer()
-      })
+      this.timerIsRunning = true;
+
+      const interval = 1000;
+      let expected = Date.now() + interval;
+
+      const step = () => {
+        const timeDrift = Date.now() - expected
+
+        if (this.timerIsRunning) {
+          expected += interval
+          setTimeout(step, Math.max(0, interval - timeDrift))
+          this.decrementTotalTime()
+          this.decrementCurrentTimer()
+        }
+      }
+
+      setTimeout(step, interval);
     },
     restartTimer () {
       this.setupTimer()
@@ -177,24 +180,6 @@ export default {
       this.currentTimer = { m: 0, s: 0 }
       this.currentTimerIndex = 0
       this.currentBlockIndex = 0
-      this.stopInterval()
-    },
-    startInterval () {
-      this.timerIsRunning = true
-
-      this.looper = setAndReturnInterval(() => {
-        const timer = decrementTimerObject(this.timer)
-        this.updateTimer(timer)
-
-        if (timerIsFinished(timer)) {
-          this.stopInterval()
-        }
-      })
-    },
-    stopInterval () {
-      clearInterval(this.looper)
-      this.looper = null
-      this.timerIsRunning = false
     },
     updateTimer (timerObject) {
       this.timer = cloneObject(timerObject)

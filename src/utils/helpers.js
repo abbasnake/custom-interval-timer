@@ -92,7 +92,6 @@ const blockColorArrayLength = BLOCK_COLORS.length
 
 export {
   returnTotalTime,
-  returnTotalSequence,
   stringifyTimerObject,
   cloneObject,
   setAndReturnInterval,
