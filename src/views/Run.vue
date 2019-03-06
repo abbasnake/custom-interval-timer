@@ -180,6 +180,7 @@ export default {
       this.currentTimer = { m: 0, s: 0 }
       this.currentTimerIndex = 0
       this.currentBlockIndex = 0
+      this.timerIsRunning = false
     },
     updateTimer (timerObject) {
       this.timer = cloneObject(timerObject)
