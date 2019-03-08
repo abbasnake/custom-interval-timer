@@ -15,7 +15,7 @@
     <AppButtonPause
       class="container__playPause"
       v-show="timerIsRunning"
-      @onClick="timerIsRunning = false"
+      @onClick="stopLoop"
     />
     <AppButtonPlay
       class="container__playPause"
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { clearInterval, setTimeout } from 'timers'
+import { clearInterval, clearTimeout, setTimeout } from 'timers'
 import {
   stringifyTimerObject,
   cloneObject,
@@ -49,7 +49,8 @@ export default {
       timerIsRunning: false,
       currentTimer: null,
       totalTimeLeft: null,
-      sets: null
+      sets: null,
+      timeout: null
     }
   },
   components: {
@@ -74,27 +75,31 @@ export default {
     this.runLoop()
   },
   beforeDestroy () {
-    this.timerIsRunning = false
+    this.stopLoop()
   },
   methods: {
     runLoop () {
-      this.timerIsRunning = true;
+      this.timerIsRunning = true
 
-      const interval = 1000;
-      let expected = Date.now() + interval;
+      const interval = 1000
+      let expected = Date.now() + interval
 
       const step = () => {
         const timeDrift = Date.now() - expected
 
         if (this.timerIsRunning) {
           expected += interval
-          setTimeout(step, Math.max(0, interval - timeDrift))
+          this.timeout = setTimeout(step, Math.max(0, interval - timeDrift))
           this.decrementTotalTime()
           this.decrementCurrentTimer()
         }
       }
 
-      setTimeout(step, interval);
+      this.timeout = setTimeout(step, interval)
+    },
+    stopLoop () {
+      clearTimeout(this.timeout)
+      this.timerIsRunning = false
     },
     restartTimer () {
       this.setupTimer()

@@ -58,3 +58,5 @@ npm run test:unit
 - check mp3 playback (for decreased soundfile size)
 - add placeholder/lazy loading
 - refactor SVG buttons to use one component and then create a component for each svg
+- add functionality to immediately cancel setTimeout when timer is paused
+- prevent screen to turn off (https://github.com/richtr/NoSleep.js)
