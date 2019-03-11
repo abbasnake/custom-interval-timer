@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { clearInterval, clearTimeout, setTimeout } from 'timers'
+import * as workerTimers from 'worker-timers'
 import {
   stringifyTimerObject,
   cloneObject,
@@ -54,7 +54,6 @@ export default {
     }
   },
   components: {
-    AppTitlePage: () => import('../components/AppTitlePage'),
     AppBlockProgressBar: () => import('../components/AppBlockProgressBar'),
     AppButtonPause: () => import('../components/AppButtonPause'),
     AppButtonPlay: () => import('../components/AppButtonPlay'),
@@ -89,16 +88,16 @@ export default {
 
         if (this.timerIsRunning) {
           expected += interval
-          this.timeout = setTimeout(step, Math.max(0, interval - timeDrift))
+          this.timeout = workerTimers.setTimeout(step, Math.max(0, interval - timeDrift))
           this.decrementTotalTime()
           this.decrementCurrentTimer()
         }
       }
 
-      this.timeout = setTimeout(step, interval)
+      this.timeout = workerTimers.setTimeout(step, interval)
     },
     stopLoop () {
-      clearTimeout(this.timeout)
+      workerTimers.clearTimeout(this.timeout)
       this.timerIsRunning = false
     },
     restartTimer () {

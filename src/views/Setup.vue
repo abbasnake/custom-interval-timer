@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <!-- <AppTitlePage title="SETUP" /> -->
     <AppSets />
     <template v-for="(block, index) in timerBlocks">
       <AppTimerBlock
@@ -20,7 +19,6 @@ import { stringifyTimerObject } from '../utils/helpers'
 export default {
   name: 'Setup',
   components: {
-    AppTitlePage: () => import('../components/AppTitlePage'),
     AppTimerBlock: () => import('../components/AppTimerBlock'),
     AppButtonMain: () => import('../components/AppButtonMain'),
     AppSets: () => import('../components/AppSets')

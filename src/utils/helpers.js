@@ -1,4 +1,3 @@
-import { setInterval } from 'timers'
 import { BLOCK_COLORS } from './constants'
 
 const returnTotalTime = state => {
@@ -54,8 +53,6 @@ const forceDoubleDigit = number => (number < 10 ? `0${number}` : `${number}`)
 
 const cloneObject = object => JSON.parse(JSON.stringify(object))
 
-const setAndReturnInterval = (callback, interval = 1000) => setInterval(callback, interval)
-
 const decrementTimerObject = timerObject => {
   const clone = cloneObject(timerObject)
 
@@ -94,7 +91,6 @@ export {
   returnTotalTime,
   stringifyTimerObject,
   cloneObject,
-  setAndReturnInterval,
   decrementTimerObject,
   incrementTimerObject,
   timerIsFinished,
