@@ -20,10 +20,12 @@
 </template>
 
 <script>
+import AppButtonArrow from '../components/AppButtonArrow'
+
 export default {
   name: 'AppSets',
   components: {
-    AppButtonArrow: () => import('../components/AppButtonArrow')
+    AppButtonArrow
   },
   computed: {
     sets () {

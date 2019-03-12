@@ -52,3 +52,4 @@ npm run test:unit
 - refactor SVG buttons to use one component and then create a component for each svg
 - prevent screen to turn off (https://github.com/richtr/NoSleep.js)
 - make small png icon for mobile/splash screen
+- add sets progression bar as well

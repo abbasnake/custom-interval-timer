@@ -1,5 +1,5 @@
 <template>
-  <div class="containerBlock" :style="renderBorder()">
+  <div class="containerBlock" :style="renderBorderColor()">
     <AppButtonRemoveBlock
       class="containerBlock__topLeftButton"
       :colorIndex="block.colorIndex"
@@ -28,15 +28,22 @@
 <script>
 import { returnBlockColorByIndex } from '../utils/helpers'
 
+import AppTimerBlockRepetitions from './AppTimerBlockRepetitions'
+import AppTimerBlockTimer from './AppTimerBlockTimer'
+import AppButtonRemoveBlock from './AppButtonRemoveBlock'
+import AppButtonAddBlock from './AppButtonAddBlock'
+import AppButtonColorWheel from './AppButtonColorWheel'
+import AppTimerBlockAddRemoveTimer from './AppTimerBlockAddRemoveTimer'
+
 export default {
   name: 'AppTimerBlock',
   components: {
-    AppTimerBlockRepetitions: () => import('./AppTimerBlockRepetitions'),
-    AppTimerBlockTimer: () => import('./AppTimerBlockTimer'),
-    AppButtonRemoveBlock: () => import('./AppButtonRemoveBlock'),
-    AppButtonAddBlock: () => import('./AppButtonAddBlock'),
-    AppButtonColorWheel: () => import('./AppButtonColorWheel'),
-    AppTimerBlockAddRemoveTimer: () => import('./AppTimerBlockAddRemoveTimer')
+    AppTimerBlockRepetitions,
+    AppTimerBlockTimer,
+    AppButtonRemoveBlock,
+    AppButtonAddBlock,
+    AppButtonColorWheel,
+    AppTimerBlockAddRemoveTimer
   },
   props: {
     blockIndex: {
@@ -49,7 +56,7 @@ export default {
     }
   },
   methods: {
-    renderBorder () {
+    renderBorderColor () {
       return `border-color: ${returnBlockColorByIndex(this.block.colorIndex)}`
     },
     renderColor () {
@@ -69,6 +76,8 @@ export default {
   margin: 15px 0;
   border: 1px solid;
   border-radius: 10px;
+  transition: all 5s linear;
+  -webkit-transition: all 5s linear;
 
   &__topLeftButton {
     position: absolute;

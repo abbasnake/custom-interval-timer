@@ -29,6 +29,8 @@ import {
   returnBlockColorByIndex
 } from '../utils/helpers'
 
+import AppButtonArrow from './AppButtonArrow'
+
 export default {
   name: 'AppTimerBlockTimer',
   props: {
@@ -42,7 +44,7 @@ export default {
     }
   },
   components: {
-    AppButtonArrow: () => import('./AppButtonArrow')
+    AppButtonArrow
   },
   methods: {
     decrementOrRemove (timerIndex, timer) {

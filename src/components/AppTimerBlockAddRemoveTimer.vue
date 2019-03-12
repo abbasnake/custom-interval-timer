@@ -16,10 +16,12 @@
 </template>
 
 <script>
+import AppButtonArrow from './AppButtonArrow'
+
 export default {
   name: 'AppTimerBlockAddRemoveTimer',
   components: {
-    AppButtonArrow: () => import('./AppButtonArrow')
+    AppButtonArrow
   },
   props: {
     blockIndex: {

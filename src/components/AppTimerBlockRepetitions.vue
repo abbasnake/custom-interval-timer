@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import AppButtonArrow from './AppButtonArrow'
+
 export default {
   name: 'AppTimerBlockRepetitions',
   data () {
@@ -33,7 +35,7 @@ export default {
     }
   },
   components: {
-    AppButtonArrow: () => import('./AppButtonArrow')
+    AppButtonArrow
   },
   methods: {
     updateRepetitions (repetitions) {

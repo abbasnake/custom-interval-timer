@@ -16,12 +16,16 @@
 <script>
 import { stringifyTimerObject } from '../utils/helpers'
 
+import AppSets from '../components/AppSets'
+import AppTimerBlock from '../components/AppTimerBlock'
+import AppButtonMain from '../components/AppButtonMain'
+
 export default {
   name: 'Setup',
   components: {
-    AppTimerBlock: () => import('../components/AppTimerBlock'),
-    AppButtonMain: () => import('../components/AppButtonMain'),
-    AppSets: () => import('../components/AppSets')
+    AppTimerBlock,
+    AppButtonMain,
+    AppSets
   },
   computed: {
     totalTime () {
