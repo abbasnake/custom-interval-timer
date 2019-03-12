@@ -76,8 +76,6 @@ export default {
   margin: 15px 0;
   border: 1px solid;
   border-radius: 10px;
-  transition: all 5s linear;
-  -webkit-transition: all 5s linear;
 
   &__topLeftButton {
     position: absolute;

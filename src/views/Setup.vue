@@ -23,9 +23,9 @@ import AppButtonMain from '../components/AppButtonMain'
 export default {
   name: 'Setup',
   components: {
+    AppSets,
     AppTimerBlock,
-    AppButtonMain,
-    AppSets
+    AppButtonMain
   },
   computed: {
     totalTime () {
