@@ -78,6 +78,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .containerTimer {
   display: flex;
   align-items: center;
@@ -88,6 +90,7 @@ export default {
     font-size: 70px;
     height: 65px;
     line-height: 0.9;
+    transition: color $transition-speed linear;
   }
 }
 </style>

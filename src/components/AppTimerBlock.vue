@@ -70,12 +70,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .containerBlock {
   position: relative;
   padding: 5px 0;
   margin: 15px 0;
   border: 1px solid;
   border-radius: 10px;
+  transition: border $transition-speed linear;
 
   &__topLeftButton {
     position: absolute;
