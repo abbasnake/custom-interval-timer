@@ -53,3 +53,4 @@ npm run test:unit
 - make small png icon for mobile/splash screen
 - add sets progression bar as well
 - back button to return to setup screen
+- screen brighter on pause
