@@ -42,7 +42,6 @@ npm run test:unit
 - object immutability (Object.freeze...?)
 - loops can be as components that can be mixed and matched and saved and loaded
 - when custom timer down to 0 and hold decrement the option to delete is available
-- perhaps need to add number of block, otherwise when many blocks can get confusing
 - desktop mode
 - css constants (background color, text color etc)
 - swipe functionality
@@ -53,3 +52,4 @@ npm run test:unit
 - prevent screen to turn off (https://github.com/richtr/NoSleep.js)
 - make small png icon for mobile/splash screen
 - add sets progression bar as well
+- back button to return to setup screen

@@ -1,12 +1,12 @@
 <template>
   <svg
-    class="button"
+    class="svg"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 70.9 70.9"
     @click="removeBlock"
   >
     <path
-      class="button__path"
+      class="svg__path"
       :fill="renderFill()"
       d="M70.9,0C47.2,0,23.6,0,0,0c0,23.6,0,47.2,0,70.9C39.1,70.9,70.9,39.1,70.9,0z M50.5,27.8v6H11.5v-6H50.5z"
     />
@@ -42,7 +42,8 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.button {
+.svg {
+  cursor: pointer;
   height: 50px;
   width: 50px;
 

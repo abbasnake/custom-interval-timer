@@ -27,6 +27,7 @@ export default {
 @import '../scss/variables';
 
 .button {
+  cursor: pointer;
   fill: $black;
   height: 70px;
   width: 70px;

@@ -32,6 +32,7 @@ export default {
 .button {
   background-color: transparent;
   border-radius: 10px;
+  cursor: pointer;
   display: block;
   height: 70px;
   margin: 10px auto;

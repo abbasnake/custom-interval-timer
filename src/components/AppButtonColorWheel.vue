@@ -55,6 +55,7 @@ export default {
 
 .svg {
   display: block;
+  cursor: pointer;
   height: 50px;
   width: 50px;
 

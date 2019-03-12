@@ -84,6 +84,11 @@ export default {
 @import '../scss/variables';
 
 .svg {
+  &:hover {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   &:active {
     opacity: .7;
   }
