@@ -30,7 +30,6 @@ import * as workerTimers from 'worker-timers'
 import {
   stringifyTimerObject,
   cloneObject,
-  setAndReturnInterval,
   decrementTimerObject,
   timerIsFinished,
   returnBlockColorByIndex

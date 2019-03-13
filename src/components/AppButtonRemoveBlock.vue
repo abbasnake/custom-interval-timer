@@ -43,9 +43,13 @@ export default {
 @import '../scss/variables';
 
 .svg {
-  cursor: pointer;
   height: 50px;
   width: 50px;
+
+  &:hover {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
 
   &__path {
     transition: fill $transition-speed linear;

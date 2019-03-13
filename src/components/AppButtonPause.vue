@@ -15,7 +15,7 @@ export default {
   name: 'AppButtonPause',
   methods: {
     pauseTimer () {
-			this.$emit('onClick')
+      this.$emit('onClick')
     }
   }
 }

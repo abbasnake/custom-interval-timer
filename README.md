@@ -54,3 +54,4 @@ npm run test:unit
 - add sets progression bar as well
 - back button to return to setup screen
 - screen brighter on pause
+- color constants are in two places (scss variables and util/constants)

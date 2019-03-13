@@ -17,7 +17,7 @@ export default {
   name: 'AppButtonReset',
   methods: {
     resetTimer () {
-			this.$emit('onClick')
+      this.$emit('onClick')
     }
   }
 }
