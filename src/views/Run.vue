@@ -10,7 +10,7 @@
     <AppButtonReset
       class="container__reset"
       v-show="!timerIsRunning"
-      @onClick="restartTimer"
+      @onClick="goToSetupScreen"
     />
     <AppButtonPause
       class="container__playPause"
@@ -72,9 +72,6 @@ export default {
   mounted () {
     this.runLoop()
   },
-  beforeDestroy () {
-    this.stopLoop()
-  },
   methods: {
     runLoop () {
       this.timerIsRunning = true
@@ -99,9 +96,8 @@ export default {
       workerTimers.clearTimeout(this.timeout)
       this.timerIsRunning = false
     },
-    restartTimer () {
-      this.setupTimer()
-      this.runLoop()
+    goToSetupScreen () {
+      this.$router.go(-1)
     },
     setupTimer () {
       this.currentBlockIndex = 0
@@ -191,30 +187,6 @@ export default {
     stringifyTimer (timerObject) {
       return stringifyTimerObject(timerObject)
     }
-    // renderButtonTitle () {
-    //   return this.timerIsRunning ? 'PAUSE' : 'START'
-    // },
-    // renderTimerTitle (index) {
-    //   if (index === 0) {
-    //     return 'PREPERATION'
-    //   }
-    //   if (index === this.totalSequence.length - 1) {
-    //     return 'COOLDOWN'
-    //   }
-
-    //   return `CUSTOM TIMER ${index}`
-    // }
-    // startOrPauseTimer () {
-    //   this.timerIsRunning ? this.stopInterval() : this.startInterval()
-    // },
-    // restartTimer () {
-    //   if (this.timerIsRunning) {
-    //     this.stopInterval()
-    //   }
-
-    //   this.updateTimer(this.initialTotalTime)
-    //   this.startInterval()
-    // }
   }
 }
 </script>
@@ -223,13 +195,12 @@ export default {
 @import '../scss/variables';
 
 .container {
-  background-color: $black;
-  width: 100%;
-  min-height: 100vh;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  min-height: 100vh;
   padding: 20px 0;
+  width: 100%;
 
   &__timer {
     font-size: 9rem;
@@ -237,14 +208,14 @@ export default {
   }
 
   &__reset {
-    position: absolute;
     bottom: 10px;
     left: 10px;
+    position: absolute;
   }
 
   &__playPause {
-    position: absolute;
     bottom: 10px;
+    position: absolute;
     right: 10px;
   }
 }
