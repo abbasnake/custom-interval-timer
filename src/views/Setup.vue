@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { stringifyTimerObject } from '../utils/helpers'
+import { stringifyTimerObject, enableNoSleep } from '../utils/helpers'
 
 import AppSets from '../components/AppSets'
 import AppTimerBlock from '../components/AppTimerBlock'
@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     runTimer () {
+      enableNoSleep()
       this.$router.push({ path: '/run' })
     },
     stringifyTimer (timerObject) {

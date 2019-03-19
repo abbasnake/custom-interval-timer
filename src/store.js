@@ -19,14 +19,6 @@ const state = {
       timers: [
         { m: 0, s: 5 }
       ]
-    },
-    {
-      repetitions: 2,
-      colorIndex: 1,
-      timers: [
-        { m: 0, s: 2 },
-        { m: 0, s: 3 }
-      ]
     }
   ]
 }

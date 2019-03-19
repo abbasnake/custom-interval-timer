@@ -27,12 +27,15 @@
 
 <script>
 import * as workerTimers from 'worker-timers'
+
 import {
   stringifyTimerObject,
   cloneObject,
   decrementTimerObject,
   timerIsFinished,
-  returnBlockColorByIndex
+  returnBlockColorByIndex,
+  enableNoSleep,
+  disableNoSleep
 } from '../utils/helpers'
 
 export default {
@@ -74,6 +77,8 @@ export default {
   },
   methods: {
     runLoop () {
+      enableNoSleep()
+
       this.timerIsRunning = true
 
       const interval = 1000
@@ -97,6 +102,7 @@ export default {
       this.timerIsRunning = false
     },
     goToSetupScreen () {
+      disableNoSleep()
       this.$router.go(-1)
     },
     setupTimer () {
