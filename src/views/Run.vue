@@ -98,11 +98,11 @@ export default {
       this.timeout = workerTimers.setTimeout(step, interval)
     },
     stopLoop () {
+      disableNoSleep()
       workerTimers.clearTimeout(this.timeout)
       this.timerIsRunning = false
     },
     goToSetupScreen () {
-      disableNoSleep()
       this.$router.go(-1)
     },
     setupTimer () {
@@ -181,6 +181,8 @@ export default {
       return this.currentBlockIndex >= this.totalSequence.length - 1
     },
     finishSequence () {
+      disableNoSleep()
+
       this.totalTimeLeft = { m: 0, s: 0 }
       this.currentTimer = { m: 0, s: 0 }
       this.currentTimerIndex = 0

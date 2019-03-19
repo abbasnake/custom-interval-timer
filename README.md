@@ -55,3 +55,4 @@ npm run test:unit
 - back button to return to setup screen
 - screen brighter on pause
 - color constants are in two places (scss variables and util/constants)
+- porper testing atleast on Android
