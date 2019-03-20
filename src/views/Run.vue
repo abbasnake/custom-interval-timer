@@ -1,6 +1,10 @@
 <template>
   <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <div>SETS: {{ sets }}x</div>
+    <div>SETS</div>
+    <AppBlockProgressBar
+      :currentTimerIndex="currentSetNumber"
+      :totalTimerCount="totalSetCount"
+    />
     <div class="container__timer">{{ stringifyTimer(currentTimer) }}</div>
     <div>{{ currentBlockRepetitionsLeft }}x</div>
     <AppBlockProgressBar
@@ -56,7 +60,7 @@ export default {
       currentBlockRepetitionsLeft: null, // needs some other mechanism probably
       timerIsRunning: false,
       currentTimer: null,
-      sets: null,
+      currentSetNumber: 1,
       timeout: null
     }
   },
@@ -67,11 +71,11 @@ export default {
     AppButtonReset
   },
   computed: {
-    totalTimerCount () {
-      return this.$store.getters.totalTimerCount
-    },
     currentBlockColor () {
       return returnBlockColorByIndex(this.totalSequence[this.currentBlockIndex].colorIndex)
+    },
+    totalSetCount () {
+      return this.$store.getters.sets
     }
   },
   created () {
@@ -115,18 +119,18 @@ export default {
       this.totalSequence = this.$store.getters.timerBlocks
       this.currentTimer = cloneObject(this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex])
       this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
-      this.sets = this.$store.getters.sets
+      this.currentSetNumber = 1
     },
     decrementCurrentTimer () {
       const newTimerObject = decrementTimerObject(this.currentTimer)
 
-      this.setCurrentTimer(newTimerObject)
+      this.updateCurrentTimer(newTimerObject)
     },
-    setCurrentTimer (timerObject) {
+    updateCurrentTimer (timerObject) {
       if (timerIsFinished(timerObject)) {
         this.switchToNextTimer()
       } else {
-        if (timerObject.m === 0 && timerObject.s < 4) {
+        if (this.timerShouldBeep(timerObject)) {
           this.audioBeep.play()
         }
         this.currentTimer = timerObject
@@ -141,10 +145,10 @@ export default {
           this.startNextCurrentBlockRepetition()
         } else {
           if (this.isLastTimerBlock()) {
-            if (this.sets > 1) {
-              this.startNextSet()
+            if (this.isLastSet()) {
+              this.finishAndResetSequence()
             } else {
-              this.finishSequence()
+              this.startNextSet()
             }
           } else {
             this.moveToNextBlock()
@@ -156,14 +160,20 @@ export default {
     },
     startNextSet () {
       this.audioWhistle.play()
-      this.sets--
+      this.currentSetNumber++
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
       this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
     },
+    timerShouldBeep (timerObject) {
+      return timerObject.m === 0 && timerObject.s < 4
+    },
     areMoreRepetitionsLeft () {
       return this.currentBlockRepetitionsLeft > 1
+    },
+    isLastSet () {
+      return this.currentSetNumber === this.totalSetCount
     },
     startNextCurrentBlockRepetition () {
       this.audioWhistle.play()
@@ -184,7 +194,7 @@ export default {
     isLastTimerBlock () {
       return this.currentBlockIndex >= this.totalSequence.length - 1
     },
-    finishSequence () {
+    finishAndResetSequence () {
       this.audioEndWhistle.play()
       disableNoSleep()
 

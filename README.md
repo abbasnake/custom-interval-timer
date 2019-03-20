@@ -53,3 +53,5 @@ npm run test:unit
 - screen brighter on pause
 - color constants are in two places (scss variables and util/constants)
 - porper testing atleast on Android
+- if user sets one of timers to 00:00, ignore it
+- style timer numbers to always be the same width
