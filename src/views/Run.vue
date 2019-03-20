@@ -42,8 +42,9 @@ export default {
   name: 'Run',
   data () {
     return {
-      audioWhistle: new Audio(require('../assets/whistle.wav')),
-      audioBeep: new Audio(require('../assets/beep.wav')),
+      audioWhistle: new Audio(require('../assets/whistle.mp3')),
+      audioEndWhistle: new Audio(require('../assets/whistle3x.mp3')),
+      audioBeep: new Audio(require('../assets/beep.mp3')),
       totalSequence: null,
       currentBlockIndex: 0,
       currentTimerIndex: 0,
@@ -124,7 +125,6 @@ export default {
     },
     setCurrentTimer (timerObject) {
       if (timerIsFinished(timerObject)) {
-        this.audioWhistle.play()
         this.switchToNextTimer()
       } else {
         if (timerObject.m === 0 && timerObject.s < 4) {
@@ -154,6 +154,7 @@ export default {
       }
     },
     startNextSet () {
+      this.audioWhistle.play()
       this.sets--
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
@@ -164,11 +165,13 @@ export default {
       return this.currentBlockRepetitionsLeft > 1
     },
     startNextCurrentBlockRepetition () {
+      this.audioWhistle.play()
       this.currentBlockRepetitionsLeft--
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
     },
     moveToNextBlock () {
+      this.audioWhistle.play()
       this.currentBlockIndex++
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
@@ -181,6 +184,7 @@ export default {
       return this.currentBlockIndex >= this.totalSequence.length - 1
     },
     finishSequence () {
+      this.audioEndWhistle.play()
       disableNoSleep()
 
       this.totalTimeLeft = { m: 0, s: 0 }
