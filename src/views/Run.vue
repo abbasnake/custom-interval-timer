@@ -28,6 +28,11 @@
 <script>
 import * as workerTimers from 'worker-timers'
 
+import AppBlockProgressBar from '../components/AppBlockProgressBar'
+import AppButtonPause from '../components/AppButtonPause'
+import AppButtonPlay from '../components/AppButtonPlay'
+import AppButtonReset from '../components/AppButtonReset'
+
 import {
   stringifyTimerObject,
   cloneObject,
@@ -51,16 +56,15 @@ export default {
       currentBlockRepetitionsLeft: null, // needs some other mechanism probably
       timerIsRunning: false,
       currentTimer: null,
-      totalTimeLeft: null,
       sets: null,
       timeout: null
     }
   },
   components: {
-    AppBlockProgressBar: () => import('../components/AppBlockProgressBar'),
-    AppButtonPause: () => import('../components/AppButtonPause'),
-    AppButtonPlay: () => import('../components/AppButtonPlay'),
-    AppButtonReset: () => import('../components/AppButtonReset')
+    AppBlockProgressBar,
+    AppButtonPause,
+    AppButtonPlay,
+    AppButtonReset
   },
   computed: {
     totalTimerCount () {
@@ -91,7 +95,6 @@ export default {
         if (this.timerIsRunning) {
           expected += interval
           this.timeout = workerTimers.setTimeout(step, Math.max(0, interval - timeDrift))
-          this.decrementTotalTime()
           this.decrementCurrentTimer()
         }
       }
@@ -109,14 +112,10 @@ export default {
     setupTimer () {
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
-      this.totalTimeLeft = this.$store.getters.totalTime
       this.totalSequence = this.$store.getters.timerBlocks
       this.currentTimer = cloneObject(this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex])
       this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
       this.sets = this.$store.getters.sets
-    },
-    decrementTotalTime () {
-      this.totalTimeLeft = decrementTimerObject(this.totalTimeLeft)
     },
     decrementCurrentTimer () {
       const newTimerObject = decrementTimerObject(this.currentTimer)
@@ -151,6 +150,8 @@ export default {
             this.moveToNextBlock()
           }
         }
+      } else {
+        this.audioWhistle.play()
       }
     },
     startNextSet () {
@@ -187,10 +188,7 @@ export default {
       this.audioEndWhistle.play()
       disableNoSleep()
 
-      this.totalTimeLeft = { m: 0, s: 0 }
-      this.currentTimer = { m: 0, s: 0 }
-      this.currentTimerIndex = 0
-      this.currentBlockIndex = 0
+      this.setupTimer()
       this.timerIsRunning = false
     },
     updateTimer (timerObject) {

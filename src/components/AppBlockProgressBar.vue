@@ -46,7 +46,7 @@ export default {
   justify-content: center;
 
   &__circle {
-    border: 1px solid black;
+    border: 2px solid rgba(0, 0, 0, .4);
     width: 40px;
     height: 40px;
     border-radius: 50%;
