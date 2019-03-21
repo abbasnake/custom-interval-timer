@@ -50,13 +50,15 @@ export default {
   }
 
   &__configuration {
-    display: flex;
     align-items: center;
+    display: flex;
     justify-content: center;
 
     &__text {
       font-size: 60px;
       margin: 0 10px;
+      min-width: 85px;
+      text-align: center;
     }
   }
 

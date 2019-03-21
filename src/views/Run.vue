@@ -5,7 +5,16 @@
       :currentTimerIndex="currentSetNumber"
       :totalTimerCount="totalSetCount"
     />
-    <div class="container__timer">{{ stringifyTimer(currentTimer) }}</div>
+    <div class="container__timer">
+      <template v-for="(char, index) in stringifyTimer(currentTimer)">
+        <span
+          class="container__timer__char"
+          :key="index"
+        >
+          {{ char }}
+        </span>
+      </template>
+    </div>
     <div>{{ currentBlockRepetitionsLeft }}x</div>
     <AppBlockProgressBar
       :currentTimerIndex="currentTimerIndex + 1"
@@ -220,11 +229,24 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   padding: 20px 0;
+  position: relative;
   width: 100%;
 
   &__timer {
-    font-size: 9rem;
-    margin: 40px 0;
+    display: flex;
+    margin: 40px auto;
+    max-width: 400px;
+    width: 90%;
+
+    &__char {
+      font-size: 9rem;
+      text-align: center;
+      width: 25%;
+
+      &:nth-of-type(3) {
+        width: auto;
+      }
+    }
   }
 
   &__reset {

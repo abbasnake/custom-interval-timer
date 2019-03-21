@@ -55,3 +55,4 @@ npm run test:unit
 - porper testing atleast on Android
 - if user sets one of timers to 00:00, ignore it
 - style timer numbers to always be the same width
+- if progress bar exceeds a certain aount of circles then just display as numbers

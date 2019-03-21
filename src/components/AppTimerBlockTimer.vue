@@ -8,8 +8,16 @@
           @onClick="decrementOrRemove(index, timer)"
           :removeIcon="isTimerZero(timer)"
         />
-        <span class="containerTimer__time" :style="renderColor()">
-          {{ stringifyTimer(timer) }}
+        <span class="containerTimer__time">
+          <template v-for="(char, index) in stringifyTimer(timer)">
+            <span
+              class="containerTimer__time__char"
+              :style="renderColor()"
+              :key="index"
+            >
+              {{ char }}
+            </span>
+          </template>
         </span>
         <AppButtonArrow
           orientation="right"
@@ -81,16 +89,27 @@ export default {
 @import '../scss/variables';
 
 .containerTimer {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 
   &__time {
-    margin: 0 10px;
-    font-size: 70px;
+    display: flex;
     height: 65px;
-    line-height: 0.9;
-    transition: color $transition-speed linear;
+    justify-content: center;
+    margin: 0 10px;
+    width: 150px;
+
+    &__char {
+      font-size: 70px;
+      text-align: center;
+      transition: color $transition-speed linear;
+      width: 35px;
+
+      &:nth-of-type(3) {
+        width: auto;
+      }
+    }
   }
 }
 </style>

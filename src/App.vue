@@ -22,7 +22,7 @@
 #app {
   min-height: 100%;
   width: 100%;
-  max-width: 767px;
+  max-width: 500px;
   margin: 0 auto;
 }
 </style>
