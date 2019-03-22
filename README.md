@@ -38,21 +38,17 @@ npm run test:unit
 ### TODOS
 - unit tests
 - e2e tests
-- object immutability (Object.freeze...?)
 - loops can be as components that can be mixed and matched and saved and loaded
-- when custom timer down to 0 and hold decrement the option to delete is available
 - desktop mode
-- css constants (background color, text color etc)
 - swipe functionality
 - maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
-- add placeholder/lazy loading
 - refactor SVG buttons to use one component and then create a component for each svg
 - make small png icon for mobile/splash screen
 - add sets progression bar as well
 - screen brighter on pause
 - color constants are in two places (scss variables and util/constants)
-- porper testing atleast on Android
 - if user sets one of timers to 00:00, ignore it
-- style timer numbers to always be the same width
 - if progress bar exceeds a certain aount of circles then just display as numbers
 - increment speed on longer button press
+- no sleep not working in firefox
+- first beep is sometimes off
