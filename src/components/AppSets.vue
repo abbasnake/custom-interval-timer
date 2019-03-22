@@ -5,7 +5,10 @@
       <AppButtonArrow
         orientation="left"
         fill="grey"
-        @onClick="updateSets(sets - 1)"
+        @onMouseDown="updateSetsByAmount(-1)"
+        @onMouseUp="stopUpdateSetsLoop"
+        @onTouchStart="updateSetsByAmount(-1)"
+        @onTouchEnd="stopUpdateSetsLoop"
       />
       <span class="containerSets__configuration__text">
         {{ sets }}x
@@ -13,7 +16,10 @@
       <AppButtonArrow
         orientation="right"
         fill="grey"
-        @onClick="updateSets(sets + 1)"
+        @onMouseDown="updateSetsByAmount(1)"
+        @onMouseUp="stopUpdateSetsLoop"
+        @onTouchStart="updateSetsByAmount(1)"
+        @onTouchEnd="stopUpdateSetsLoop"
       />
     </div>
   </div>
@@ -21,9 +27,16 @@
 
 <script>
 import AppButtonArrow from '../components/AppButtonArrow'
+import { clearInterval, setInterval } from 'timers';
 
 export default {
   name: 'AppSets',
+  data () {
+    return {
+      loopSpeed: 100,
+      updateSetsLoop: null
+    }
+  },
   components: {
     AppButtonArrow
   },
@@ -37,6 +50,15 @@ export default {
       if (sets > 0) {
         this.$store.commit('updateSets', sets)
       }
+    },
+    updateSetsByAmount (amount) {
+      this.updateSets(this.sets + amount)
+      this.updateSetsLoop = setInterval(() => {
+        this.updateSets(this.sets + amount)
+      }, this.loopSpeed)
+    },
+    stopUpdateSetsLoop () {
+      clearInterval(this.updateSetsLoop)
     }
   }
 }

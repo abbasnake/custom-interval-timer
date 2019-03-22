@@ -5,8 +5,11 @@
         <AppButtonArrow
           orientation="left"
           :fill="renderFill()"
-          @onClick="decrementOrRemove(index, timer)"
           :removeIcon="isTimerZero(timer)"
+          @onMouseDown="decrementOrRemoveTimer(index, timer)"
+          @onMouseUp="stopUpdateTimerLoop"
+          @onTouchStart="decrementOrRemoveTimer(index, timer)"
+          @onTouchEnd="stopUpdateTimerLoop"
         />
         <span class="containerTimer__time">
           <template v-for="(char, index) in stringifyTimer(timer)">
@@ -22,7 +25,10 @@
         <AppButtonArrow
           orientation="right"
           :fill="renderFill()"
-          @onClick="increment(index, timer)"
+          @onMouseDown="incrementTimer(index, timer)"
+          @onMouseUp="stopUpdateTimerLoop"
+          @onTouchStart="incrementTimer(index, timer)"
+          @onTouchEnd="stopUpdateTimerLoop"
         />
       </div>
     </template>
@@ -34,13 +40,21 @@ import {
   stringifyTimerObject,
   incrementTimerObject,
   decrementTimerObject,
+  timerIsFinished,
   returnBlockColorByIndex
 } from '../utils/helpers'
 
 import AppButtonArrow from './AppButtonArrow'
+import { clearInterval, setInterval } from 'timers';
 
 export default {
   name: 'AppTimerBlockTimer',
+  data () {
+    return {
+      loopSpeed: 100,
+      updateTimerLoop: null
+    }
+  },
   props: {
     blockIndex: {
       type: Number,
@@ -55,19 +69,36 @@ export default {
     AppButtonArrow
   },
   methods: {
-    decrementOrRemove (timerIndex, timer) {
-      if (timer.m === 0 && timer.s === 0) {
+    decrementOrRemoveTimer (timerIndex, timer) {
+      if (timerIsFinished(timer)) {
         this.$store.commit('removeTimerFromBlock', { blockIndex: this.blockIndex, timerIndex })
       } else {
-        const timerObject = decrementTimerObject(timer)
-
-        this.$store.commit('updateBlockTimer', { blockIndex: this.blockIndex, timerIndex, timerObject })
+        this.decrementTimer(timerIndex, timer)
       }
     },
-    increment (timerIndex, timer) {
-      const timerObject = incrementTimerObject(timer)
+    decrementTimer (timerIndex, timer) {
+      let timerObject = decrementTimerObject(timer)
+      this.updateBlockTimer(timerIndex, timerObject)
 
+      this.updateTimerLoop = setInterval(() => {
+        timerObject = decrementTimerObject(timerObject)
+        this.updateBlockTimer(timerIndex, timerObject)
+      }, this.loopSpeed)
+    },
+    incrementTimer (timerIndex, timer) {
+      let timerObject = incrementTimerObject(timer)
+      this.updateBlockTimer(timerIndex, timerObject)
+
+      this.updateTimerLoop = setInterval(() => {
+        timerObject = incrementTimerObject(timerObject)
+        this.updateBlockTimer(timerIndex, timerObject)
+      }, this.loopSpeed)
+    },
+    updateBlockTimer (timerIndex, timerObject) {
       this.$store.commit('updateBlockTimer', { blockIndex: this.blockIndex, timerIndex, timerObject })
+    },
+    stopUpdateTimerLoop () {
+      clearInterval(this.updateTimerLoop)
     },
     renderColor () {
       return `color: ${returnBlockColorByIndex(this.block.colorIndex)}`

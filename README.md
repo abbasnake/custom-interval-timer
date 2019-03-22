@@ -36,7 +36,6 @@ npm run test:unit
 ```
 
 ### TODOS
-- when holding + or - increment decrement inceases (@mousedown, perhaps no need for @click)
 - unit tests
 - e2e tests
 - object immutability (Object.freeze...?)
@@ -56,3 +55,4 @@ npm run test:unit
 - if user sets one of timers to 00:00, ignore it
 - style timer numbers to always be the same width
 - if progress bar exceeds a certain aount of circles then just display as numbers
+- increment speed on longer button press

@@ -5,7 +5,10 @@
     :width="size"
     :height="size"
     :style="returnOrientation()"
-    @click="onClick"
+    @mousedown.prevent="onMouseDown"
+    @mouseup.prevent="onMouseUp"
+    @touchstart.prevent="onTouchStart"
+    @touchend.prevent="onTouchEnd"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 198.46 184.25"
   >
@@ -20,7 +23,10 @@
     class="svg"
     :width="size"
     :height="size - 1"
-    @click="onClick"
+    @mousedown.prevent="onMouseDown"
+    @mouseup.prevent="onMouseUp"
+    @touchstart.prevent="onTouchStart"
+    @touchend.prevent="onTouchEnd"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 198.4 198.4"
   >
@@ -56,8 +62,17 @@ export default {
     }
   },
   methods: {
-    onClick () {
-      this.$emit('onClick')
+    onMouseDown () {
+      this.$emit('onMouseDown')
+    },
+    onMouseUp () {
+      this.$emit('onMouseUp')
+    },
+    onTouchStart () {
+      this.$emit('onTouchStart')
+    },
+    onTouchEnd () {
+      this.$emit('onTouchEnd')
     },
     returnOrientation () {
       let degrees = 0

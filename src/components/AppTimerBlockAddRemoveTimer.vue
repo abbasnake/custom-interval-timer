@@ -4,13 +4,15 @@
       class="containerAddRemoveTimer__button"
       orientation="up"
       fill="grey"
-      @onClick="removeLastTimerFromBlock"
+      @onMouseDown="removeLastTimerFromBlock"
+      @onTouchStart="removeLastTimerFromBlock"
     />
     <AppButtonArrow
       class="containerAddRemoveTimer__button"
       orientation="down"
       fill="grey"
-      @onClick="addTimerToBlock"
+      @onMouseDown="addTimerToBlock"
+      @onTouchStart="addTimerToBlock"
     />
   </div>
 </template>
