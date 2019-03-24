@@ -9,12 +9,12 @@
       />
     </template>
     <div class="container__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
-    <AppButtonMain title="START" @onClick="runTimer"/>
+    <AppButtonMain :title="mainButtonTitle" @onClick="runTimer"/>
   </div>
 </template>
 
 <script>
-import { stringifyTimerObject, enableNoSleep } from '../utils/helpers'
+import { stringifyTimerObject, enableNoSleep, totalTimeExceedsZero } from '../utils/helpers'
 
 import AppSets from '../components/AppSets'
 import AppTimerBlock from '../components/AppTimerBlock'
@@ -36,12 +36,20 @@ export default {
     },
     sets () {
       return this.$store.getters.sets
+    },
+    isValidSetup () {
+      return totalTimeExceedsZero(this.timerBlocks)
+    },
+    mainButtonTitle () {
+      return this.isValidSetup ? 'START' : 'ADD SOME TIME'
     }
   },
   methods: {
     runTimer () {
-      enableNoSleep()
-      this.$router.push({ path: '/run' })
+      if (this.isValidSetup) {
+        enableNoSleep()
+        this.$router.push({ path: '/run' })
+      }
     },
     stringifyTimer (timerObject) {
       return stringifyTimerObject(timerObject)

@@ -44,7 +44,6 @@ npm run test:unit
 - maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
 - refactor SVG buttons to use one component and then create a component for each svg
 - make small png icon for mobile/splash screen
-- add sets progression bar as well
 - screen brighter on pause
 - color constants are in two places (scss variables and util/constants)
 - if user sets one of timers to 00:00, ignore it
@@ -52,3 +51,4 @@ npm run test:unit
 - increment speed on longer button press
 - no sleep not working in firefox
 - first beep is sometimes off
+- start button always at bottom

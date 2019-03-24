@@ -1,10 +1,6 @@
 <template>
   <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <div>SETS</div>
-    <AppBlockProgressBar
-      :currentTimerIndex="currentSetNumber"
-      :totalTimerCount="totalSetCount"
-    />
+    <div>SETS: {{ currentSetNumber }}/{{ totalSetCount }}</div>
     <div class="container__timer">
       <template v-for="(char, index) in stringifyTimer(currentTimer)">
         <span
@@ -53,7 +49,8 @@ import {
   timerIsFinished,
   returnBlockColorByIndex,
   enableNoSleep,
-  disableNoSleep
+  disableNoSleep,
+  removeZeroTimeTimers
 } from '../utils/helpers'
 
 export default {
@@ -125,15 +122,13 @@ export default {
     setupTimer () {
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
-      this.totalSequence = this.$store.getters.timerBlocks
+      this.totalSequence = removeZeroTimeTimers(this.$store.getters.timerBlocks)
       this.currentTimer = cloneObject(this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex])
       this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
       this.currentSetNumber = 1
     },
     decrementCurrentTimer () {
-      const newTimerObject = decrementTimerObject(this.currentTimer)
-
-      this.updateCurrentTimer(newTimerObject)
+      this.updateCurrentTimer(decrementTimerObject(this.currentTimer))
     },
     updateCurrentTimer (timerObject) {
       if (timerIsFinished(timerObject)) {

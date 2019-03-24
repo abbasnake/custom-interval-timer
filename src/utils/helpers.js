@@ -36,6 +36,24 @@ const convertExtraSecondsToMinutes = timerObject => {
   return clone
 }
 
+const removeZeroTimeTimers = timerBlocks => (
+  timerBlocks
+    .map(timerBlock => {
+      const timers = timerBlock.timers.filter(timer => !(timerIsFinished(timer)))
+
+      return { ...timerBlock, timers }
+    })
+    .filter(({ timers }) => timers.length)
+)
+
+const totalTimeExceedsZero = timerBlocks => {
+  const isMoreThanZero = timerBlocks.find(({ timers }) => (
+    timers.find(timerObject => !(timerIsFinished(timerObject)))
+  ))
+
+  return typeof isMoreThanZero !== 'undefined'
+}
+
 const returnTotalTimerCount = state => {
   const { timerBlocks, sets } = state
   let count = 0
@@ -103,5 +121,7 @@ export {
   blockColorArrayLength,
   returnTotalTimerCount,
   enableNoSleep,
+  removeZeroTimeTimers,
+  totalTimeExceedsZero,
   disableNoSleep
 }
