@@ -13,9 +13,10 @@
     <AppTimerBlockRepetitions
       :repetitions="block.repetitions"
       :blockIndex="blockIndex"
+      :colorIndex="block.colorIndex"
     />
     <AppTimerBlockTimer :block="block" :blockIndex="blockIndex" />
-    <AppTimerBlockAddRemoveTimer :blockIndex="blockIndex" />
+    <AppTimerBlockAddRemoveTimer :blockIndex="blockIndex" :colorIndex="block.colorIndex" />
     <div class="containerBlock__sequenceNumber">{{ blockIndex + 1 }}</div>
     <AppButtonAddBlock
       class="containerBlock__bottomRightButton"

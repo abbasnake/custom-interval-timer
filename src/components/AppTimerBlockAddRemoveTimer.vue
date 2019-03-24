@@ -3,14 +3,14 @@
     <AppButtonArrow
       class="containerAddRemoveTimer__button"
       orientation="up"
-      fill="grey"
+      :fill="returnFillColor()"
       @onMouseDown="removeLastTimerFromBlock"
       @onTouchStart="removeLastTimerFromBlock"
     />
     <AppButtonArrow
       class="containerAddRemoveTimer__button"
       orientation="down"
-      fill="grey"
+      :fill="returnFillColor()"
       @onMouseDown="addTimerToBlock"
       @onTouchStart="addTimerToBlock"
     />
@@ -19,6 +19,7 @@
 
 <script>
 import AppButtonArrow from './AppButtonArrow'
+import { returnBlockColorByIndex } from '../utils/helpers.js'
 
 export default {
   name: 'AppTimerBlockAddRemoveTimer',
@@ -29,6 +30,10 @@ export default {
     blockIndex: {
       type: Number,
       required: true
+    },
+    colorIndex: {
+      type: Number,
+      required: true
     }
   },
   methods: {
@@ -37,6 +42,9 @@ export default {
     },
     addTimerToBlock () {
       this.$store.commit('addTimerToBlock', this.blockIndex)
+    },
+    returnFillColor () {
+      return returnBlockColorByIndex(this.colorIndex)
     }
   }
 }

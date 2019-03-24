@@ -52,3 +52,13 @@ npm run test:unit
 - no sleep not working in firefox
 - first beep is sometimes off
 - start button always at bottom
+- smaller font for timers in blocks
+- bigger and bold font for start button
+- shrink bloks so they are further from sides
+- all arrows in block color
+- increase area of effect for arrow buttons, maybe size as well
+- sets in one line e.g. "3x SETS"
+- navigation bar black fades to opaque to blend better with block color
+- different sounds for each block
+- counting sets voice
+- maybe tap bloc to make active and then possible to edit

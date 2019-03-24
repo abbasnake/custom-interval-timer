@@ -2,7 +2,7 @@
   <div class="containerRepetitions">
     <AppButtonArrow
         orientation="left"
-        :fill="color"
+        :fill="returnFillColor()"
         @onMouseDown="updateRepetitionsByAmount(-1)"
         @onMouseUp="stopUpdateRepetitionsLoop"
         @onTouchStart="updateRepetitionsByAmount(-1)"
@@ -11,7 +11,7 @@
     <span class="containerRepetitions__text">{{ repetitions }}x</span>
     <AppButtonArrow
         orientation="right"
-        :fill="color"
+        :fill="returnFillColor()"
         @onMouseDown="updateRepetitionsByAmount(1)"
         @onMouseUp="stopUpdateRepetitionsLoop"
         @onTouchStart="updateRepetitionsByAmount(1)"
@@ -22,6 +22,7 @@
 
 <script>
 import AppButtonArrow from './AppButtonArrow'
+import { returnBlockColorByIndex } from '../utils/helpers.js'
 
 export default {
   name: 'AppTimerBlockRepetitions',
@@ -38,6 +39,10 @@ export default {
       required: true
     },
     blockIndex: {
+      type: Number,
+      required: true
+    },
+    colorIndex: {
       type: Number,
       required: true
     }
@@ -59,6 +64,9 @@ export default {
     },
     stopUpdateRepetitionsLoop () {
       clearInterval(this.updateRepetitionsLoop)
+    },
+    returnFillColor () {
+      return returnBlockColorByIndex(this.colorIndex)
     }
   }
 }
