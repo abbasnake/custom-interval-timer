@@ -1,6 +1,7 @@
 <template>
   <div class="containerSets">
     <AppButtonArrow
+      class="containerSets__arrow"
       orientation="left"
       fill="grey"
       @onMouseDown="updateSetsByAmount(-1)"
@@ -8,10 +9,10 @@
       @onTouchStart="updateSetsByAmount(-1)"
       @onTouchEnd="stopUpdateSetsLoop"
     />
-    <span class="containerSets__text">
-      <span class="containerSets__text__sets">{{ sets }}</span> x sets
-    </span>
+    <span class="containerSets__sets">{{ sets }}</span>
+    <span class="containerSets__pluralize">{{ pluralize }}</span>
     <AppButtonArrow
+      class="containerSets__arrow"
       orientation="right"
       fill="grey"
       @onMouseDown="updateSetsByAmount(1)"
@@ -24,7 +25,7 @@
 
 <script>
 import AppButtonArrow from '../components/AppButtonArrow'
-import { clearInterval, setInterval } from 'timers';
+import { clearInterval, setInterval } from 'timers'
 
 export default {
   name: 'AppSets',
@@ -40,6 +41,9 @@ export default {
   computed: {
     sets () {
       return this.$store.getters.sets
+    },
+    pluralize () {
+      return this.sets > 1 ? 'LOOPS' : 'LOOP'
     }
   },
   methods: {
@@ -65,18 +69,25 @@ export default {
 .containerSets {
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  margin: 0 auto;
+  max-width: 300px;
 
-  &__text {
-    display: flex;
+  &__arrow {
+    flex: 2;
+  }
+
+  &__sets {
+    flex: 1;
     font-size: 40px;
-    margin: 0 20px;
+    line-height: 0.9;
     text-align: center;
+  }
 
-    &__sets {
-      display: block;
-      min-width: 39px;
-    }
+  &__pluralize {
+    align-self: flex-end;
+    flex: 1.5;
+    font-size: 30px;
   }
 }
 </style>
