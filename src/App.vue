@@ -19,6 +19,13 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: 'Saira Condensed';
+  src: url('./assets/fonts/SairaCondensed-Bold.ttf');
+  font-style: bold;
+  font-weight: 700;
+}
+
 #app {
   min-height: 100%;
   width: 100%;

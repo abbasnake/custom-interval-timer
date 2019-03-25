@@ -34,8 +34,11 @@ export default {
   border-radius: 10px;
   cursor: pointer;
   display: block;
+  font-size: 50px;
+  font-weight: 700;
   height: 70px;
+  letter-spacing: 5px;
   margin: 10px auto;
-  font-size: 30px;
+  outline: none;
 }
 </style>

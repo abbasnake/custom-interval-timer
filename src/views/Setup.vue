@@ -41,7 +41,7 @@ export default {
       return totalTimeExceedsZero(this.timerBlocks)
     },
     mainButtonTitle () {
-      return this.isValidSetup ? 'START' : 'ADD SOME TIME'
+      return this.isValidSetup ? 'START' : 'SET TIME'
     }
   },
   methods: {
