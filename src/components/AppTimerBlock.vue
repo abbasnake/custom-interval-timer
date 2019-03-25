@@ -78,7 +78,7 @@ export default {
   padding: 5px 0;
   margin: 15px 0;
   border: 1px solid;
-  border-radius: 10px;
+  border-radius: 20px;
   transition: border $transition-speed linear;
 
   &__topLeftButton {
@@ -89,8 +89,8 @@ export default {
 
   &__colorWheel {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0;
+    top: 0;
   }
 
   &__sequenceNumber {

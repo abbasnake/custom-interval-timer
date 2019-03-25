@@ -99,13 +99,15 @@ export default {
 @import '../scss/variables';
 
 .svg {
+  opacity: .6;
+
   &:hover {
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
   }
 
   &:active {
-    opacity: .7;
+    opacity: 1;
   }
 
   &__polygon {

@@ -2,16 +2,21 @@
   <div class="containerRepetitions">
     <AppButtonArrow
         orientation="left"
-        :fill="returnFillColor()"
+        :fill="returnBlockColor()"
         @onMouseDown="updateRepetitionsByAmount(-1)"
         @onMouseUp="stopUpdateRepetitionsLoop"
         @onTouchStart="updateRepetitionsByAmount(-1)"
         @onTouchEnd="stopUpdateRepetitionsLoop"
       />
-    <span class="containerRepetitions__text">{{ repetitions }}x</span>
+    <span
+      class="containerRepetitions__text"
+      :style="{ color: returnBlockColor() }"
+    >
+      {{ repetitions }}x
+    </span>
     <AppButtonArrow
         orientation="right"
-        :fill="returnFillColor()"
+        :fill="returnBlockColor()"
         @onMouseDown="updateRepetitionsByAmount(1)"
         @onMouseUp="stopUpdateRepetitionsLoop"
         @onTouchStart="updateRepetitionsByAmount(1)"
@@ -65,7 +70,7 @@ export default {
     stopUpdateRepetitionsLoop () {
       clearInterval(this.updateRepetitionsLoop)
     },
-    returnFillColor () {
+    returnBlockColor () {
       return returnBlockColorByIndex(this.colorIndex)
     }
   }
@@ -73,6 +78,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .containerRepetitions {
   display: flex;
   align-items: center;
@@ -82,6 +89,7 @@ export default {
     margin: 0 10px;
     font-size: 30px;
     text-align: center;
+    transition: color $transition-speed linear;
     width: 30px;
   }
 }

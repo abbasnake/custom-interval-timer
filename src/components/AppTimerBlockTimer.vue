@@ -126,13 +126,13 @@ export default {
 
   &__time {
     display: flex;
-    height: 65px;
+    // height: 65px;
     justify-content: center;
     margin: 0 10px;
-    width: 150px;
+    width: 130px;
 
     &__char {
-      font-size: 70px;
+      font-size: 50px;
       text-align: center;
       transition: color $transition-speed linear;
       width: 35px;

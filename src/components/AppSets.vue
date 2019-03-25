@@ -3,7 +3,7 @@
     <AppButtonArrow
       class="containerSets__arrow"
       orientation="left"
-      fill="grey"
+      fill="white"
       @onMouseDown="updateSetsByAmount(-1)"
       @onMouseUp="stopUpdateSetsLoop"
       @onTouchStart="updateSetsByAmount(-1)"
@@ -14,7 +14,7 @@
     <AppButtonArrow
       class="containerSets__arrow"
       orientation="right"
-      fill="grey"
+      fill="white"
       @onMouseDown="updateSetsByAmount(1)"
       @onMouseUp="stopUpdateSetsLoop"
       @onTouchStart="updateSetsByAmount(1)"
