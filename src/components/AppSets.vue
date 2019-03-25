@@ -1,27 +1,24 @@
 <template>
   <div class="containerSets">
-    <h3 class="containerSets__title">SETS</h3>
-    <div class="containerSets__configuration">
-      <AppButtonArrow
-        orientation="left"
-        fill="grey"
-        @onMouseDown="updateSetsByAmount(-1)"
-        @onMouseUp="stopUpdateSetsLoop"
-        @onTouchStart="updateSetsByAmount(-1)"
-        @onTouchEnd="stopUpdateSetsLoop"
-      />
-      <span class="containerSets__configuration__text">
-        {{ sets }}x
-      </span>
-      <AppButtonArrow
-        orientation="right"
-        fill="grey"
-        @onMouseDown="updateSetsByAmount(1)"
-        @onMouseUp="stopUpdateSetsLoop"
-        @onTouchStart="updateSetsByAmount(1)"
-        @onTouchEnd="stopUpdateSetsLoop"
-      />
-    </div>
+    <AppButtonArrow
+      orientation="left"
+      fill="grey"
+      @onMouseDown="updateSetsByAmount(-1)"
+      @onMouseUp="stopUpdateSetsLoop"
+      @onTouchStart="updateSetsByAmount(-1)"
+      @onTouchEnd="stopUpdateSetsLoop"
+    />
+    <span class="containerSets__text">
+      <span class="containerSets__text__sets">{{ sets }}</span> x sets
+    </span>
+    <AppButtonArrow
+      orientation="right"
+      fill="grey"
+      @onMouseDown="updateSetsByAmount(1)"
+      @onMouseUp="stopUpdateSetsLoop"
+      @onTouchStart="updateSetsByAmount(1)"
+      @onTouchEnd="stopUpdateSetsLoop"
+    />
   </div>
 </template>
 
@@ -66,23 +63,20 @@ export default {
 
 <style lang="scss" scoped>
 .containerSets {
-  &__title {
-    font-size: 30px;
-    text-align: center;
-  }
+  align-items: center;
+  display: flex;
+  justify-content: center;
 
-  &__configuration {
-    align-items: center;
+  &__text {
     display: flex;
-    justify-content: center;
+    font-size: 40px;
+    margin: 0 20px;
+    text-align: center;
 
-    &__text {
-      font-size: 60px;
-      margin: 0 10px;
-      min-width: 85px;
-      text-align: center;
+    &__sets {
+      display: block;
+      min-width: 39px;
     }
   }
-
 }
 </style>
