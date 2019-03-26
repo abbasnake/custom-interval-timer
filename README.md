@@ -58,3 +58,4 @@ npm run test:unit
 - different sounds for each block
 - counting sets voice
 - maybe tap bloc to make active and then possible to edit
+- sets arrows inline with timer block arrows

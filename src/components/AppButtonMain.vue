@@ -25,17 +25,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .button {
-  background-color: transparent;
+  background-color: $black;
   border-radius: 10px;
   cursor: pointer;
   display: block;
-  font-size: 50px;
+  font-size: 30px;
   font-weight: 700;
   height: 70px;
   letter-spacing: 5px;
   margin: 10px auto;
   outline: none;
-  width: 80%;
+  width: 55%;
 }
 </style>

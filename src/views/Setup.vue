@@ -69,23 +69,31 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 500px;
   height: 100%;
   background-color: $black;
 
   &__sets {
-    flex: 1;
+    position: absolute;
+    width: 100%;
+    max-width: 500px;
+    z-index: 2;
   }
 
   &__timers {
-    flex: 8;
+    flex: 1;
     overflow-y: auto;
-    padding: 10px 30px;
+    padding: 50px 30px 150px;
     width: 100%;
   }
 
   &__footer {
-    flex: 2;
+    background-color: rgba(12, 18, 18, .9);
+    position: absolute;
+    bottom: 0;
     padding: 10px 0;
+    width: 100%;
+    max-width: 500px;
 
     &__total {
       font-size: 26px;

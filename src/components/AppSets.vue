@@ -68,25 +68,25 @@ export default {
 <style lang="scss" scoped>
 .containerSets {
   align-items: center;
+  background-color: rgba(12, 18, 18, .9);
   display: flex;
   justify-content: space-around;
-  margin: 0 auto;
-  width: 300px;
+  padding: 10px 0;
 
   &__arrow {
-    flex: 2;
+    flex: 10;
   }
 
   &__sets {
-    flex: 1;
+    flex: 50px;
     font-size: 40px;
-    line-height: 0.9;
+    line-height: 1;
     text-align: center;
   }
 
   &__pluralize {
     align-self: center;
-    flex: 1.5;
+    flex: 60px;
     font-size: 30px;
     padding-top: 5px;
   }
