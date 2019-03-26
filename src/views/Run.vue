@@ -222,7 +222,7 @@ export default {
   align-items: center;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  height: 100%;
   padding: 20px 0;
   position: relative;
   width: 100%;

@@ -71,7 +71,7 @@ export default {
   display: flex;
   justify-content: space-around;
   margin: 0 auto;
-  max-width: 300px;
+  width: 300px;
 
   &__arrow {
     flex: 2;
@@ -85,9 +85,10 @@ export default {
   }
 
   &__pluralize {
-    align-self: flex-end;
+    align-self: center;
     flex: 1.5;
     font-size: 30px;
+    padding-top: 5px;
   }
 }
 </style>

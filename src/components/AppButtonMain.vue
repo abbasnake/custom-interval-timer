@@ -11,10 +11,6 @@ export default {
     title: {
       type: String,
       required: true
-    },
-    width: {
-      type: String,
-      default: '100%'
     }
   },
   methods: {
@@ -40,5 +36,6 @@ export default {
   letter-spacing: 5px;
   margin: 10px auto;
   outline: none;
+  width: 80%;
 }
 </style>

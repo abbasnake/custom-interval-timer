@@ -1,15 +1,19 @@
 <template>
   <div class="container">
-    <AppSets />
-    <template v-for="(block, index) in timerBlocks">
-      <AppTimerBlock
-        :block="block"
-        :blockIndex="index"
-        :key="index"
-      />
-    </template>
-    <div class="container__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
-    <AppButtonMain :title="mainButtonTitle" @onClick="runTimer"/>
+    <AppSets class="container__sets" />
+    <div class="container__timers">
+      <template v-for="(block, index) in timerBlocks">
+        <AppTimerBlock
+          :block="block"
+          :blockIndex="index"
+          :key="index"
+        />
+      </template>
+    </div>
+    <footer class="container__footer">
+      <div class="container__footer__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
+      <AppButtonMain :title="mainButtonTitle" @onClick="runTimer"/>
+    </footer>
   </div>
 </template>
 
@@ -62,14 +66,31 @@ export default {
 @import '../scss/variables';
 
 .container {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  min-height: 100vh;
-  padding: 20px 30px;
+  height: 100%;
   background-color: $black;
 
-  &__total {
-    font-size: 26px;
-    text-align: center;
+  &__sets {
+    flex: 1;
+  }
+
+  &__timers {
+    flex: 8;
+    overflow-y: auto;
+    padding: 10px 30px;
+    width: 100%;
+  }
+
+  &__footer {
+    flex: 2;
+    padding: 10px 0;
+
+    &__total {
+      font-size: 26px;
+      text-align: center;
+    }
   }
 }
 </style>
