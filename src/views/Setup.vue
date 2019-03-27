@@ -88,7 +88,7 @@ export default {
   }
 
   &__footer {
-    background-color: rgba(12, 18, 18, .9);
+    background-image: linear-gradient(rgba(12, 18, 18, .4), $black, $black, $black);
     position: absolute;
     bottom: 0;
     padding: 10px 0;

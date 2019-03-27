@@ -66,9 +66,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../scss/variables';
+
 .containerSets {
   align-items: center;
-  background-color: rgba(12, 18, 18, .9);
+  background-image: linear-gradient($black, $black, $black, rgba(12, 18, 18, .4));
   display: flex;
   justify-content: space-around;
   padding: 10px 0;

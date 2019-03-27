@@ -59,3 +59,4 @@ npm run test:unit
 - counting sets voice
 - maybe tap bloc to make active and then possible to edit
 - sets arrows inline with timer block arrows
+- fix readme file (add todos in another file)
