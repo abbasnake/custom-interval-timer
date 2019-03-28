@@ -14,8 +14,9 @@ const state = {
   sets: 1,
   timerBlocks: [
     {
-      repetitions: 1,
       colorIndex: 0,
+      justAdded: false,
+      repetitions: 1,
       timers: [
         { m: 0, s: 5 }
       ]
@@ -42,8 +43,9 @@ const mutations = {
     }
 
     newArray.splice(blockIndex + 1, 0, {
-      repetitions: 1,
       colorIndex: nextColorIndex,
+      justAdded: true,
+      repetitions: 1,
       timers: [
         { m: 0, s: 5 }
       ]
@@ -57,6 +59,12 @@ const mutations = {
       newArray.splice(blockIndex, 1)
       Vue.set(state, 'timerBlocks', newArray)
     }
+  },
+  updateBlockStatusByIndex (state, blockIndex) {
+    const newArray = cloneObject(state.timerBlocks)
+
+    newArray[blockIndex].justAdded = false
+    Vue.set(state, 'timerBlocks', newArray)
   },
   addTimerToBlock (state, blockIndex) {
     const newArray = cloneObject(state.timerBlocks)

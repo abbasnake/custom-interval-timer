@@ -1,4 +1,5 @@
 import { BLOCK_COLORS } from './constants'
+import * as workerTimers from 'worker-timers'
 import * as NoSleep from 'nosleep.js/dist/NoSleep'
 const noSleep = new NoSleep()
 
@@ -123,5 +124,6 @@ export {
   enableNoSleep,
   removeZeroTimeTimers,
   totalTimeExceedsZero,
-  disableNoSleep
+  disableNoSleep,
+  workerTimers
 }

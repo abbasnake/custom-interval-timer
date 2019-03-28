@@ -1,31 +1,33 @@
 <template>
   <div class="containerSets">
-    <AppButtonArrow
-      class="containerSets__arrow"
-      orientation="left"
-      fill="white"
-      @onMouseDown="updateSetsByAmount(-1)"
-      @onMouseUp="stopUpdateSetsLoop"
-      @onTouchStart="updateSetsByAmount(-1)"
-      @onTouchEnd="stopUpdateSetsLoop"
-    />
+    <div class="containerSets__arrow">
+      <AppButtonArrow
+        orientation="left"
+        fill="white"
+        @onMouseDown="updateSetsByAmount(-1)"
+        @onMouseUp="stopUpdateSetsLoop"
+        @onTouchStart="updateSetsByAmount(-1)"
+        @onTouchEnd="stopUpdateSetsLoop"
+      />
+    </div>
     <span class="containerSets__sets">{{ sets }}</span>
     <span class="containerSets__pluralize">{{ pluralize }}</span>
-    <AppButtonArrow
-      class="containerSets__arrow"
-      orientation="right"
-      fill="white"
-      @onMouseDown="updateSetsByAmount(1)"
-      @onMouseUp="stopUpdateSetsLoop"
-      @onTouchStart="updateSetsByAmount(1)"
-      @onTouchEnd="stopUpdateSetsLoop"
-    />
+    <div class="containerSets__arrow">
+      <AppButtonArrow
+        orientation="right"
+        fill="white"
+        @onMouseDown="updateSetsByAmount(1)"
+        @onMouseUp="stopUpdateSetsLoop"
+        @onTouchStart="updateSetsByAmount(1)"
+        @onTouchEnd="stopUpdateSetsLoop"
+      />
+    </div>
   </div>
 </template>
 
 <script>
+import { workerTimers } from '../utils/helpers.js'
 import AppButtonArrow from '../components/AppButtonArrow'
-import { clearInterval, setInterval } from 'timers'
 
 export default {
   name: 'AppSets',
@@ -54,12 +56,12 @@ export default {
     },
     updateSetsByAmount (amount) {
       this.updateSets(this.sets + amount)
-      this.updateSetsLoop = setInterval(() => {
+      this.updateSetsLoop = workerTimers.setInterval(() => {
         this.updateSets(this.sets + amount)
       }, this.loopSpeed)
     },
     stopUpdateSetsLoop () {
-      clearInterval(this.updateSetsLoop)
+      workerTimers.clearInterval(this.updateSetsLoop)
     }
   }
 }
@@ -77,6 +79,8 @@ export default {
 
   &__arrow {
     flex: 10;
+    text-align: center;
+    // border: 1px solid purple;
   }
 
   &__sets {

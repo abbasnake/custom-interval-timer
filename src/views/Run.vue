@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import * as workerTimers from 'worker-timers'
-
 import AppBlockProgressBar from '../components/AppBlockProgressBar'
 import AppButtonPause from '../components/AppButtonPause'
 import AppButtonPlay from '../components/AppButtonPlay'
@@ -50,7 +48,8 @@ import {
   returnBlockColorByIndex,
   enableNoSleep,
   disableNoSleep,
-  removeZeroTimeTimers
+  removeZeroTimeTimers,
+  workerTimers
 } from '../utils/helpers'
 
 export default {

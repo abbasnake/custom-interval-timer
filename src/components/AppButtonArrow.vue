@@ -45,7 +45,7 @@ export default {
   props: {
     size: {
       type: Number,
-      default: 30
+      default: 40
     },
     fill: {
       type: String,
@@ -100,6 +100,7 @@ export default {
 
 .svg {
   opacity: .6;
+  padding: 5px;
 
   &:hover {
     cursor: pointer;

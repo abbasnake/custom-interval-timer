@@ -1,5 +1,5 @@
 <template>
-  <div class="containerBlock" :style="renderBorderColor()">
+  <div class="containerBlock" :style="renderStyles()">
     <AppButtonRemoveBlock
       class="containerBlock__topLeftButton"
       :colorIndex="block.colorIndex"
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { returnBlockColorByIndex } from '../utils/helpers'
+import { returnBlockColorByIndex, workerTimers } from '../utils/helpers'
 
 import AppTimerBlockRepetitions from './AppTimerBlockRepetitions'
 import AppTimerBlockTimer from './AppTimerBlockTimer'
@@ -56,12 +56,24 @@ export default {
       required: true
     }
   },
+  mounted () {
+    this.updateColor()
+  },
+  updated () {
+    this.updateColor()
+  },
   methods: {
-    renderBorderColor () {
-      return `border-color: ${returnBlockColorByIndex(this.block.colorIndex)}`
+    updateColor () {
+      if (this.block.justAdded) {
+        workerTimers.setTimeout(() => {
+          this.$store.commit('updateBlockStatusByIndex', this.blockIndex)
+        }, 200)
+      }
     },
-    renderColor () {
-      return `color: ${returnBlockColorByIndex(this.block.colorIndex)}`
+    renderStyles () {
+      const borderColor = `border-color: ${this.block.justAdded ? 'white' : returnBlockColorByIndex(this.block.colorIndex)}`
+      const backgroundColor = `background-color: ${this.block.justAdded ? 'rgba(255, 255, 255, .1)' : 'transparent'}`
+      return `${borderColor}; ${backgroundColor}`
     },
     addTimerToBlock () {
       this.$store.commit('addTimerToBlock', this.blockIndex)
@@ -79,7 +91,7 @@ export default {
   margin: 15px 0;
   border: 1px solid;
   border-radius: 20px;
-  transition: border $transition-speed linear;
+  transition: all $transition-speed linear;
 
   &__topLeftButton {
     position: absolute;
