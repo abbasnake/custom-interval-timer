@@ -57,7 +57,8 @@ export default {
   data () {
     return {
       audioWhistle: new Audio(require('../assets/whistle.mp3')),
-      audioEndWhistle: new Audio(require('../assets/whistle3x.mp3')),
+      audioEndBlockWhistle: new Audio(require('../assets/whistle2x.mp3')),
+      audioEndWhistle: new Audio(require('../assets/whistle4x.mp3')),
       audioBeep: new Audio(require('../assets/beep.mp3')),
       totalSequence: null,
       currentBlockIndex: 0,
@@ -185,7 +186,7 @@ export default {
       this.currentTimer = this.getCurrentTimerFromSequnece()
     },
     moveToNextBlock () {
-      this.audioWhistle.play()
+      this.audioEndBlockWhistle.play()
       this.currentBlockIndex++
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
