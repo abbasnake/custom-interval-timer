@@ -1,6 +1,19 @@
-# custom-hiit
+# Loop It (in development)
+A customizable interval timer app for HIIT or any workout using time.
 
-## Project setup
+Can use online or download app [here](https://abbasnake.github.io/CustomIntervalTimer/dist)
+
+# Motivation
+## Fitness
+
+My training partner and I perform most of our strength training exercises with a timer. We do this to better keep track of our progress and keep ourselves honest and less cheaty. An exercise like a pushup for us may consist of 4 parts (going down -> staying down -> pushing up -> staying up), each of the parts have their own time slot (the timespan in which a particular part of a movement should be performed), so in the pushup example a single pushup could consist of a 3212 sequence (3s going down -> 2s staying down -> 1s pushing up -> 2s staying up). If we are doing 10 of these the timing is getting tricky for regular HIIT apps and even trickier if we are doing exercises in sequence or supersets. There are great apps that do this already, but I wanted to try it my way. Also, an additional reason is...
+
+## Programming
+
+Wanted to create a PWA as an exercise and to develop my programming skills. I am somewhat new to the field so feel free to recommend or criticize.
+
+# Project setup
+### install dependencies
 ```
 npm install
 ```
@@ -15,7 +28,7 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+<!-- ### Run your tests
 ```
 npm run test
 ```
@@ -33,24 +46,4 @@ npm run test:e2e
 ### Run your unit tests
 ```
 npm run test:unit
-```
-
-### TODOS
-- unit tests
-- e2e tests
-- loops can be as components that can be mixed and matched and saved and loaded
-- desktop mode
-- swipe functionality
-- maybe move mutations to actions, so that more than one mutation can be used in single dispatch/commit
-- refactor SVG buttons to use one component and then create a component for each svg
-- screen brighter on pause
-- color constants are in two places (scss variables and util/constants)
-- if progress bar exceeds a certain aount of circles then just display as numbers
-- increment speed on longer button press
-- no sleep not working in firefox
-- first beep is sometimes off
-- navigation bar black fades to opaque to blend better with block color
-- different sounds for each block
-- counting sets voice
-- maybe tap bloc to make active and then possible to edit
-- fix readme file (add todos in another file)
+``` -->
