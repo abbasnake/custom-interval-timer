@@ -1,6 +1,6 @@
 <template>
   <div class="containerSets">
-    <div class="containerSets__arrow">
+    <div class="containerSets__arrow containerSets__arrow__left">
       <AppButtonArrow
         orientation="left"
         fill="white"
@@ -12,7 +12,7 @@
     </div>
     <span class="containerSets__sets">{{ sets }}</span>
     <span class="containerSets__pluralize">{{ pluralize }}</span>
-    <div class="containerSets__arrow">
+    <div class="containerSets__arrow containerSets__arrow__right">
       <AppButtonArrow
         orientation="right"
         fill="white"
@@ -79,8 +79,14 @@ export default {
 
   &__arrow {
     flex: 10;
-    text-align: center;
-    // border: 1px solid purple;
+
+    &__left {
+      text-align: right;
+    }
+
+    &__right {
+      text-align: left;
+    }
   }
 
   &__sets {
@@ -92,7 +98,7 @@ export default {
 
   &__pluralize {
     align-self: center;
-    flex: 60px;
+    flex: 65px;
     font-size: 30px;
     padding-top: 5px;
   }

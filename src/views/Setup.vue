@@ -83,7 +83,7 @@ export default {
   &__timers {
     flex: 1;
     overflow-y: auto;
-    padding: 50px 30px 150px;
+    padding: 52px 30px 150px;
     width: 100%;
   }
 

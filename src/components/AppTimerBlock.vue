@@ -72,7 +72,7 @@ export default {
     },
     renderStyles () {
       const borderColor = `border-color: ${this.block.justAdded ? 'white' : returnBlockColorByIndex(this.block.colorIndex)}`
-      const backgroundColor = `background-color: ${this.block.justAdded ? 'rgba(255, 255, 255, .1)' : 'transparent'}`
+      const backgroundColor = `background-color: ${this.block.justAdded ? 'rgba(200, 200, 200, .1)' : 'transparent'}`
       return `${borderColor}; ${backgroundColor}`
     },
     addTimerToBlock () {
