@@ -1,12 +1,17 @@
 <template>
   <div class="ProgressBar">
-    <template v-for="timerIndex in totalTimerCount">
-      <span
-        class="ProgressBar__circle"
-        :style="renderBackground(timerIndex)"
-        :key="timerIndex"
-      />
+    <template v-if="totalCircleCount <= 10">
+      <template v-for="timerIndex in totalCircleCount">
+        <span
+          class="ProgressBar__circle"
+          :style="renderCircleStyles(timerIndex)"
+          :key="timerIndex"
+        />
+      </template>
     </template>
+    <div v-else>
+      TIMER {{ currentCircleIndex }} OF {{ totalCircleCount }}
+    </div>
   </div>
 </template>
 
@@ -14,23 +19,32 @@
 export default {
   name: 'AppBlockProgressBar',
   props: {
-    currentTimerIndex: {
+    currentCircleIndex: {
       type: Number,
       required: true
     },
-    totalTimerCount: {
+    totalCircleCount: {
       type: Number,
       required: true
     }
   },
   methods: {
-    renderBackground (index) {
-      const backgroundTemplate = (color, opacity = 1) => ({ 'background-color': color, 'opacity': opacity })
+    renderCircleStyles (index) {
+      const sizeStyles = {
+        'width': `${52 - this.totalCircleCount * 3}px`,
+        'height': `${52 - this.totalCircleCount * 3}px`
+      }
 
-      if (index < this.currentTimerIndex) return backgroundTemplate('black')
-      if (index === this.currentTimerIndex) return backgroundTemplate('black', 0.4)
+      const styleTemplate = (color, opacity = 1) => ({
+        'background-color': color,
+        'opacity': opacity,
+        ...sizeStyles
+        })
 
-      return {}
+      if (index < this.currentCircleIndex) return styleTemplate('black')
+      if (index === this.currentCircleIndex) return styleTemplate('black', 0.4)
+
+      return sizeStyles
     }
   }
 }
@@ -40,15 +54,12 @@ export default {
 @import '../scss/variables';
 
 .ProgressBar {
-  width: 70%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
 
   &__circle {
     border: 2px solid rgba(0, 0, 0, .4);
-    width: 40px;
-    height: 40px;
     border-radius: 50%;
     margin: 5px;
   }

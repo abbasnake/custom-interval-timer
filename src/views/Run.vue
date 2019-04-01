@@ -1,6 +1,6 @@
 <template>
   <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <div>SETS: {{ currentSetNumber }}/{{ totalSetCount }}</div>
+    <div>LOOP {{ currentSetNumber }} OF {{ totalSetCount }}</div>
     <div class="container__timer">
       <template v-for="(char, index) in stringifyTimer(currentTimer)">
         <span
@@ -11,10 +11,9 @@
         </span>
       </template>
     </div>
-    <div>{{ currentBlockRepetitionsLeft }}x</div>
     <AppBlockProgressBar
-      :currentTimerIndex="currentTimerIndex + 1"
-      :totalTimerCount="totalSequence[currentBlockIndex].timers.length"
+      :currentCircleIndex="currentBlockProgress"
+      :totalCircleCount="returnCurrentBlockProgressLength()"
     />
     <AppButtonReset
       class="container__reset"
@@ -46,24 +45,21 @@ import {
   decrementTimerObject,
   timerIsFinished,
   returnBlockColorByIndex,
-  enableNoSleep,
-  disableNoSleep,
-  removeZeroTimeTimers,
-  workerTimers
+  removeZeroTimeTimers
 } from '../utils/helpers'
+import NoSleep from '../utils/noSleep.js'
+import Audio from '../utils/audio.js'
+import WorkerTimers from '../utils/workerTimers.js'
 
 export default {
   name: 'Run',
   data () {
     return {
-      audioWhistle: new Audio(require('../assets/whistle.mp3')),
-      audioEndBlockWhistle: new Audio(require('../assets/whistle2x.mp3')),
-      audioEndWhistle: new Audio(require('../assets/whistle4x.mp3')),
-      audioBeep: new Audio(require('../assets/beep.mp3')),
       totalSequence: null,
       currentBlockIndex: 0,
       currentTimerIndex: 0,
-      currentBlockRepetitionsLeft: null, // needs some other mechanism probably
+      currentBlockCurrentRepetition: 1,
+      currentBlockProgress: 1,
       timerIsRunning: false,
       currentTimer: null,
       currentSetNumber: 1,
@@ -87,12 +83,15 @@ export default {
   created () {
     this.setupTimer()
   },
-  mounted () {
-    this.runLoop()
+  destroyed () {
+    if (this.timerIsRunning) {
+      this.stopLoop()
+    }
   },
   methods: {
     runLoop () {
-      enableNoSleep()
+      Audio.unmuteAll()
+      NoSleep.enable()
 
       this.timerIsRunning = true
 
@@ -104,16 +103,16 @@ export default {
 
         if (this.timerIsRunning) {
           expected += interval
-          this.timeout = workerTimers.setTimeout(step, Math.max(0, interval - timeDrift))
+          this.timeout = WorkerTimers.setTimeout(step, Math.max(0, interval - timeDrift))
           this.decrementCurrentTimer()
         }
       }
 
-      this.timeout = workerTimers.setTimeout(step, interval)
+      this.timeout = WorkerTimers.setTimeout(step, interval)
     },
     stopLoop () {
-      disableNoSleep()
-      workerTimers.clearTimeout(this.timeout)
+      NoSleep.disable()
+      WorkerTimers.clearTimeout(this.timeout)
       this.timerIsRunning = false
     },
     goToSetupScreen () {
@@ -124,7 +123,8 @@ export default {
       this.currentTimerIndex = 0
       this.totalSequence = removeZeroTimeTimers(this.$store.getters.timerBlocks)
       this.currentTimer = cloneObject(this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex])
-      this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
+      this.currentBlockCurrentRepetition = 1
+      this.currentBlockProgress = 1
       this.currentSetNumber = 1
     },
     decrementCurrentTimer () {
@@ -135,13 +135,14 @@ export default {
         this.switchToNextTimer()
       } else {
         if (this.timerShouldBeep(timerObject)) {
-          this.audioBeep.play()
+          Audio.beep.play()
         }
         this.currentTimer = timerObject
       }
     },
     switchToNextTimer () {
       this.currentTimerIndex++
+      this.currentBlockProgress++
       this.currentTimer = this.getCurrentTimerFromSequnece()
 
       if (this.currentTimer === undefined) {
@@ -159,38 +160,40 @@ export default {
           }
         }
       } else {
-        this.audioWhistle.play()
+        Audio.whistle.play()
       }
     },
     startNextSet () {
-      this.audioWhistle.play()
+      Audio.endBlockWhistle.play()
       this.currentSetNumber++
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
-      this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
+      this.currentBlockCurrentRepetition = 1
+      this.currentBlockProgress = 1
     },
     timerShouldBeep (timerObject) {
       return timerObject.m === 0 && timerObject.s < 4
     },
     areMoreRepetitionsLeft () {
-      return this.currentBlockRepetitionsLeft > 1
+      return this.currentBlockCurrentRepetition < this.totalSequence[this.currentBlockIndex].repetitions
     },
     isLastSet () {
       return this.currentSetNumber === this.totalSetCount
     },
     startNextCurrentBlockRepetition () {
-      this.audioWhistle.play()
-      this.currentBlockRepetitionsLeft--
+      Audio.whistle.play()
+      this.currentBlockCurrentRepetition++
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
     },
     moveToNextBlock () {
-      this.audioEndBlockWhistle.play()
+      Audio.endBlockWhistle.play()
       this.currentBlockIndex++
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
-      this.currentBlockRepetitionsLeft = this.totalSequence[this.currentBlockIndex].repetitions
+      this.currentBlockCurrentRepetition = 1
+      this.currentBlockProgress = 1
     },
     getCurrentTimerFromSequnece () {
       return this.totalSequence[this.currentBlockIndex].timers[this.currentTimerIndex]
@@ -199,14 +202,17 @@ export default {
       return this.currentBlockIndex >= this.totalSequence.length - 1
     },
     finishAndResetSequence () {
-      this.audioEndWhistle.play()
-      disableNoSleep()
+      Audio.endWhistle.play()
+      NoSleep.disable()
 
       this.setupTimer()
       this.timerIsRunning = false
     },
-    updateTimer (timerObject) {
-      this.timer = cloneObject(timerObject)
+    returnCurrentBlockProgressLength () {
+      const currentBlockLength = this.totalSequence[this.currentBlockIndex].timers.length
+      const currentBlockRepetitions = this.totalSequence[this.currentBlockIndex].repetitions
+
+      return currentBlockLength * currentBlockRepetitions
     },
     stringifyTimer (timerObject) {
       return stringifyTimerObject(timerObject)

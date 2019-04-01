@@ -41,9 +41,9 @@ import {
   incrementTimerObject,
   decrementTimerObject,
   timerIsFinished,
-  returnBlockColorByIndex,
-  workerTimers
+  returnBlockColorByIndex
 } from '../utils/helpers'
+import WorkerTimers from '../utils/workerTimers.js'
 
 import AppButtonArrow from './AppButtonArrow'
 
@@ -80,7 +80,7 @@ export default {
       let timerObject = decrementTimerObject(timer)
       this.updateBlockTimer(timerIndex, timerObject)
 
-      this.updateTimerLoop = workerTimers.setInterval(() => {
+      this.updateTimerLoop = WorkerTimers.setInterval(() => {
         timerObject = decrementTimerObject(timerObject)
         this.updateBlockTimer(timerIndex, timerObject)
       }, this.loopSpeed)
@@ -89,7 +89,7 @@ export default {
       let timerObject = incrementTimerObject(timer)
       this.updateBlockTimer(timerIndex, timerObject)
 
-      this.updateTimerLoop = workerTimers.setInterval(() => {
+      this.updateTimerLoop = WorkerTimers.setInterval(() => {
         timerObject = incrementTimerObject(timerObject)
         this.updateBlockTimer(timerIndex, timerObject)
       }, this.loopSpeed)
@@ -98,7 +98,7 @@ export default {
       this.$store.commit('updateBlockTimer', { blockIndex: this.blockIndex, timerIndex, timerObject })
     },
     stopUpdateTimerLoop () {
-      workerTimers.clearInterval(this.updateTimerLoop)
+      WorkerTimers.clearInterval(this.updateTimerLoop)
     },
     renderColor () {
       return `color: ${returnBlockColorByIndex(this.block.colorIndex)}`

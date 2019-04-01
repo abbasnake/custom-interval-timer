@@ -18,7 +18,9 @@
 </template>
 
 <script>
-import { stringifyTimerObject, enableNoSleep, totalTimeExceedsZero } from '../utils/helpers'
+import { stringifyTimerObject, totalTimeExceedsZero } from '../utils/helpers'
+import NoSleep from '../utils/noSleep.js'
+import Audio from '../utils/audio.js'
 
 import AppSets from '../components/AppSets'
 import AppTimerBlock from '../components/AppTimerBlock'
@@ -51,7 +53,8 @@ export default {
   methods: {
     runTimer () {
       if (this.isValidSetup) {
-        enableNoSleep()
+        Audio.muteAll() // used for iOS compatability, audio files must be interacted with before use
+        NoSleep.enable()
         this.$router.push({ path: '/run' })
       }
     },

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { workerTimers } from '../utils/helpers.js'
+import WorkerTimers from '../utils/workerTimers.js'
 import AppButtonArrow from '../components/AppButtonArrow'
 
 export default {
@@ -56,12 +56,12 @@ export default {
     },
     updateSetsByAmount (amount) {
       this.updateSets(this.sets + amount)
-      this.updateSetsLoop = workerTimers.setInterval(() => {
+      this.updateSetsLoop = WorkerTimers.setInterval(() => {
         this.updateSets(this.sets + amount)
       }, this.loopSpeed)
     },
     stopUpdateSetsLoop () {
-      workerTimers.clearInterval(this.updateSetsLoop)
+      WorkerTimers.clearInterval(this.updateSetsLoop)
     }
   }
 }

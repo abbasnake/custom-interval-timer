@@ -1,10 +1,4 @@
 import { BLOCK_COLORS } from './constants'
-import * as workerTimers from 'worker-timers'
-import * as NoSleep from 'nosleep.js/dist/NoSleep'
-const noSleep = new NoSleep()
-
-const enableNoSleep = () => noSleep.enable()
-const disableNoSleep = () => noSleep.disable()
 
 const returnTotalTime = state => {
   const { timerBlocks, sets } = state
@@ -121,9 +115,6 @@ export {
   returnBlockColorByIndex,
   blockColorArrayLength,
   returnTotalTimerCount,
-  enableNoSleep,
   removeZeroTimeTimers,
-  totalTimeExceedsZero,
-  disableNoSleep,
-  workerTimers
+  totalTimeExceedsZero
 }

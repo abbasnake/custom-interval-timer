@@ -27,7 +27,8 @@
 
 <script>
 import AppButtonArrow from './AppButtonArrow'
-import { returnBlockColorByIndex, workerTimers } from '../utils/helpers.js'
+import { returnBlockColorByIndex } from '../utils/helpers.js'
+import WorkerTimers from '../utils/workerTimers.js'
 
 export default {
   name: 'AppTimerBlockRepetitions',
@@ -63,12 +64,12 @@ export default {
     },
     updateRepetitionsByAmount (amount) {
       this.updateRepetitions(this.repetitions + amount)
-      this.updateRepetitionsLoop = workerTimers.setInterval(() => {
+      this.updateRepetitionsLoop = WorkerTimers.setInterval(() => {
         this.updateRepetitions(this.repetitions + amount)
       }, this.loopSpeed)
     },
     stopUpdateRepetitionsLoop () {
-      workerTimers.clearInterval(this.updateRepetitionsLoop)
+      WorkerTimers.clearInterval(this.updateRepetitionsLoop)
     },
     returnBlockColor () {
       return returnBlockColorByIndex(this.colorIndex)

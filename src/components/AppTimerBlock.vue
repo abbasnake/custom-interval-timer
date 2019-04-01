@@ -27,7 +27,8 @@
 </template>
 
 <script>
-import { returnBlockColorByIndex, workerTimers } from '../utils/helpers'
+import { returnBlockColorByIndex } from '../utils/helpers'
+import WorkerTimers from '../utils/workerTimers.js'
 
 import AppTimerBlockRepetitions from './AppTimerBlockRepetitions'
 import AppTimerBlockTimer from './AppTimerBlockTimer'
@@ -65,7 +66,7 @@ export default {
   methods: {
     updateColor () {
       if (this.block.justAdded) {
-        workerTimers.setTimeout(() => {
+        WorkerTimers.setTimeout(() => {
           this.$store.commit('updateBlockStatusByIndex', this.blockIndex)
         }, 200)
       }
