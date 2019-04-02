@@ -1,7 +1,7 @@
 <template>
   <div>
     <template v-for="(timer, index) in block.timers">
-      <div class="containerTimer" :key="index">
+      <div class="Timer" :key="index">
         <AppButtonArrow
           orientation="left"
           :fill="renderFill()"
@@ -11,10 +11,10 @@
           @onTouchStart="decrementOrRemoveTimer(index, timer)"
           @onTouchEnd="stopUpdateTimerLoop"
         />
-        <span class="containerTimer__time">
+        <span class="Timer__time">
           <template v-for="(char, index) in stringifyTimer(timer)">
             <span
-              class="containerTimer__time__char"
+              class="Timer__time__char"
               :style="renderColor()"
               :key="index"
             >
@@ -119,7 +119,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.containerTimer {
+.Timer {
   align-items: center;
   display: flex;
   justify-content: center;

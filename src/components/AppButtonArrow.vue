@@ -1,7 +1,7 @@
 <template>
   <svg
     v-if="!removeIcon"
-    class="svg"
+    class="Svg"
     :width="size"
     :height="size"
     :style="returnOrientation()"
@@ -13,14 +13,14 @@
     viewBox="0 0 198.46 184.25"
   >
     <polygon
-      class="svg__polygon"
+      class="Svg__polygon"
       :fill="fill"
       points="198.46 0 164.8 0 102.97 118.9 36.74 0.02 0 0.02 102.63 184.25 198.46 0"
     />
   </svg>
   <svg
     v-else
-    class="svg"
+    class="Svg"
     :width="size"
     :height="size - 1"
     @mousedown.prevent="onMouseDown"
@@ -31,7 +31,7 @@
     viewBox="0 0 198.4 198.4"
   >
     <polygon
-      class="svg__polygon"
+      class="Svg__polygon"
       :fill="fill"
       points="178.1,3.2 179.2,1.3 143.1,1.3 142,3.2 100.4,70.2 62.4,3.2 61.3,1.3 28.3,1.3 29.3,3.2 84.4,100.2
         29,197.8 62.1,197.8 100.4,130.2 142.3,197.8 178.4,197.8 117.9,100.2"
@@ -98,7 +98,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.svg {
+.Svg {
   opacity: .6;
   padding: 5px;
 

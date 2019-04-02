@@ -1,12 +1,12 @@
 <template>
-  <div class="containerBlock" :style="renderStyles()">
+  <div class="Block" :style="renderStyles()">
     <AppButtonRemoveBlock
-      class="containerBlock__topLeftButton"
+      class="Block__topLeftButton"
       :colorIndex="block.colorIndex"
       :blockIndex="blockIndex"
     />
     <AppButtonColorWheel
-      class="containerBlock__colorWheel"
+      class="Block__colorWheel"
       :blockIndex="blockIndex"
       :colorIndex="block.colorIndex"
     />
@@ -17,9 +17,9 @@
     />
     <AppTimerBlockTimer :block="block" :blockIndex="blockIndex" />
     <AppTimerBlockAddRemoveTimer :blockIndex="blockIndex" :colorIndex="block.colorIndex" />
-    <div class="containerBlock__sequenceNumber">{{ blockIndex + 1 }}</div>
+    <div class="Block__sequenceNumber">{{ blockIndex + 1 }}</div>
     <AppButtonAddBlock
-      class="containerBlock__bottomRightButton"
+      class="Block__bottomRightButton"
       :colorIndex="block.colorIndex"
       :blockIndex="blockIndex"
     />
@@ -86,7 +86,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.containerBlock {
+.Block {
   position: relative;
   padding: 5px 0;
   margin: 15px 0;

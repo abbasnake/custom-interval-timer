@@ -1,7 +1,7 @@
 <template>
-  <div class="container">
-    <AppSets class="container__sets" />
-    <div class="container__timers">
+  <div class="SetupScreen">
+    <AppSets class="SetupScreen__sets" />
+    <div class="SetupScreen__timers">
       <template v-for="(block, index) in timerBlocks">
         <AppTimerBlock
           :block="block"
@@ -10,8 +10,8 @@
         />
       </template>
     </div>
-    <footer class="container__footer">
-      <div class="container__footer__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
+    <footer class="SetupScreen__footer">
+      <div class="SetupScreen__footer__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
       <AppButtonMain :title="mainButtonTitle" @onClick="runTimer"/>
     </footer>
   </div>
@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.container {
+.SetupScreen {
   display: flex;
   flex-direction: column;
   width: 100%;

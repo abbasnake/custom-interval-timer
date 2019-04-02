@@ -1,6 +1,6 @@
 <template>
   <svg
-    class="svg"
+    class="Svg"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 70.9 70.9"
     @click="playTimer"
@@ -23,7 +23,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.svg {
+.Svg {
   cursor: pointer;
   fill: $black;
   height: 70px;

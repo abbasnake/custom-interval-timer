@@ -1,10 +1,10 @@
 <template>
-  <div class="container" :style="{ backgroundColor: currentBlockColor }">
-    <div>LOOP {{ currentSetNumber }} OF {{ totalSetCount }}</div>
-    <div class="container__timer">
+  <div class="RunScreen" :style="{ backgroundColor: currentBlockColor }">
+    <div class="RunScreen__loopInfo">LOOP {{ currentSetNumber }} OF {{ totalSetCount }}</div>
+    <div class="RunScreen__timer">
       <template v-for="(char, index) in stringifyTimer(currentTimer)">
         <span
-          class="container__timer__char"
+          class="RunScreen__timer__char"
           :key="index"
         >
           {{ char }}
@@ -16,17 +16,17 @@
       :totalCircleCount="returnCurrentBlockProgressLength()"
     />
     <AppButtonReset
-      class="container__reset"
+      class="RunScreen__reset"
       v-show="!timerIsRunning"
       @onClick="goToSetupScreen"
     />
     <AppButtonPause
-      class="container__playPause"
+      class="RunScreen__playPause"
       v-show="timerIsRunning"
       @onClick="stopLoop"
     />
     <AppButtonPlay
-      class="container__playPause"
+      class="RunScreen__playPause"
       v-show="!timerIsRunning"
       @onClick="runLoop"
     />
@@ -224,7 +224,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.container {
+.RunScreen {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -233,6 +233,10 @@ export default {
   position: relative;
   width: 100%;
 
+  &__loopInfo {
+    font-size: 40px;
+  }
+z
   &__timer {
     display: flex;
     margin: 40px auto;

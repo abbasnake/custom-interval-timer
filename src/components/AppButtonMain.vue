@@ -1,5 +1,5 @@
 <template>
-  <button class="button" @click="onClick" :style="renderWidth()">
+  <button class="Button" @click="onClick" :style="renderWidth()">
     {{ title }}
   </button>
 </template>
@@ -27,7 +27,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.button {
+.Button {
   background-color: $black;
   border-radius: 10px;
   cursor: pointer;

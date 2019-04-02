@@ -1,5 +1,5 @@
 <template>
-  <div class="containerRepetitions">
+  <div class="Repetitions">
     <AppButtonArrow
         orientation="left"
         :fill="returnBlockColor()"
@@ -9,7 +9,7 @@
         @onTouchEnd="stopUpdateRepetitionsLoop"
       />
     <span
-      class="containerRepetitions__text"
+      class="Repetitions__text"
       :style="{ color: returnBlockColor() }"
     >
       {{ repetitions }}x
@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.containerRepetitions {
+.Repetitions {
   display: flex;
   align-items: center;
   justify-content: center;

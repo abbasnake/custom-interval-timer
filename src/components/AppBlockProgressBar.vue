@@ -9,7 +9,7 @@
         />
       </template>
     </template>
-    <div v-else>
+    <div v-else class="ProgressBar__text">
       TIMER {{ currentCircleIndex }} OF {{ totalCircleCount }}
     </div>
   </div>
@@ -39,7 +39,7 @@ export default {
         'background-color': color,
         'opacity': opacity,
         ...sizeStyles
-        })
+      })
 
       if (index < this.currentCircleIndex) return styleTemplate('black')
       if (index === this.currentCircleIndex) return styleTemplate('black', 0.4)
@@ -62,6 +62,10 @@ export default {
     border: 2px solid rgba(0, 0, 0, .4);
     border-radius: 50%;
     margin: 5px;
+  }
+
+  &__text {
+    font-size: 40px;
   }
 }
 

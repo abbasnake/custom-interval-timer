@@ -1,14 +1,14 @@
 <template>
-  <div class="containerAddRemoveTimer">
+  <div class="AddRemoveTimer">
     <AppButtonArrow
-      class="containerAddRemoveTimer__button"
+      class="AddRemoveTimer__button"
       orientation="up"
       :fill="returnFillColor()"
       @onMouseDown="removeLastTimerFromBlock"
       @onTouchStart="removeLastTimerFromBlock"
     />
     <AppButtonArrow
-      class="containerAddRemoveTimer__button"
+      class="AddRemoveTimer__button"
       orientation="down"
       :fill="returnFillColor()"
       @onMouseDown="addTimerToBlock"
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.containerAddRemoveTimer {
+.AddRemoveTimer {
   display: flex;
   justify-content: center;
 

@@ -1,6 +1,6 @@
 <template>
-  <div class="containerSets">
-    <div class="containerSets__arrow containerSets__arrow__left">
+  <div class="Sets">
+    <div class="Sets__arrow Sets__arrow__left">
       <AppButtonArrow
         orientation="left"
         fill="white"
@@ -10,9 +10,9 @@
         @onTouchEnd="stopUpdateSetsLoop"
       />
     </div>
-    <span class="containerSets__sets">{{ sets }}</span>
-    <span class="containerSets__pluralize">{{ pluralize }}</span>
-    <div class="containerSets__arrow containerSets__arrow__right">
+    <span class="Sets__sets">{{ sets }}</span>
+    <span class="Sets__pluralize">{{ pluralize }}</span>
+    <div class="Sets__arrow Sets__arrow__right">
       <AppButtonArrow
         orientation="right"
         fill="white"
@@ -70,7 +70,7 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.containerSets {
+.Sets {
   align-items: center;
   background-image: linear-gradient($black, $black, $black, rgba(12, 18, 18, .4));
   display: flex;
