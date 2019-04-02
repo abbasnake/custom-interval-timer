@@ -58,6 +58,7 @@ export default {
   display: block;
   height: 50px;
   width: 50px;
+  z-index: 2;
 
   &:hover {
     cursor: pointer;

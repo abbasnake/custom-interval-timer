@@ -230,13 +230,12 @@ export default {
   flex-direction: column;
   height: 100%;
   padding: 20px 0;
-  position: relative;
   width: 100%;
 
   &__loopInfo {
     font-size: 40px;
   }
-z
+
   &__timer {
     display: flex;
     margin: 40px auto;

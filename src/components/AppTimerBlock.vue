@@ -87,7 +87,6 @@ export default {
 @import '../scss/variables';
 
 .Block {
-  position: relative;
   padding: 5px 0;
   margin: 15px 0;
   border: 1px solid;

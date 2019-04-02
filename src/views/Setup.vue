@@ -53,7 +53,8 @@ export default {
   methods: {
     runTimer () {
       if (this.isValidSetup) {
-        Audio.muteAll() // used for iOS compatability, audio files must be interacted with before use
+        // used for iOS compatability, audio files must be interacted with before use
+        Audio.muteAll()
         NoSleep.enable()
         this.$router.push({ path: '/run' })
       }
@@ -69,8 +70,6 @@ export default {
 @import '../scss/variables';
 
 .SetupScreen {
-  display: flex;
-  flex-direction: column;
   width: 100%;
   max-width: 500px;
   height: 100%;
@@ -80,14 +79,22 @@ export default {
     position: absolute;
     width: 100%;
     max-width: 500px;
-    z-index: 2;
+    z-index: 3;
   }
 
   &__timers {
-    flex: 1;
+    height: 95%;
     overflow-y: auto;
-    padding: 52px 30px 150px;
+    padding: 52px 30px 0;
     width: 100%;
+
+    // adding this instead of padding-bottom because of a bug in firefox
+    // where padding does not work when overflow is used
+    &::after {
+      content: '';
+      display: block;
+      height: 100px;
+    }
   }
 
   &__footer {
@@ -97,6 +104,7 @@ export default {
     padding: 10px 0;
     width: 100%;
     max-width: 500px;
+    z-index: 3;
 
     &__total {
       font-size: 26px;
