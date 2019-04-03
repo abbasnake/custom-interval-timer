@@ -1,28 +1,36 @@
 const audio = () => {
   const whistle = new Audio(require('../assets/whistle.mp3'))
-  const endBlockWhistle = new Audio(require('../assets/whistle2x.mp3'))
-  const endWhistle = new Audio(require('../assets/whistle4x.mp3'))
-  const beep = new Audio(require('../assets/beep.mp3'))
+  const endBlockSound = new Audio(require('../assets/whistle2x.mp3'))
+  const endSound = new Audio(require('../assets/gong.mp3'))
+  const beepOn3 = new Audio(require('../assets/beepSemitoneUp.mp3'))
+  const beepOn2 = new Audio(require('../assets/beep.mp3'))
+  const beepOn1 = new Audio(require('../assets/beepSemitoneDown.mp3'))
 
   const muteAll = () => {
-    beep.muted = true
+    beepOn3.muted = true
+    beepOn2.muted = true
+    beepOn1.muted = true
     whistle.muted = true
-    endBlockWhistle.muted = true
-    endWhistle.muted = true
+    endBlockSound.muted = true
+    endSound.muted = true
   }
 
   const unmuteAll = () => {
-    beep.muted = false
+    beepOn3.muted = false
+    beepOn2.muted = false
+    beepOn1.muted = false
     whistle.muted = false
-    endBlockWhistle.muted = false
-    endWhistle.muted = false
+    endBlockSound.muted = false
+    endSound.muted = false
   }
 
   return Object.freeze({
-    beep,
+    beepOn3,
+    beepOn2,
+    beepOn1,
     whistle,
-    endBlockWhistle,
-    endWhistle,
+    endBlockSound,
+    endSound,
     muteAll,
     unmuteAll
   })

@@ -135,10 +135,17 @@ export default {
         this.switchToNextTimer()
       } else {
         if (this.timerShouldBeep(timerObject)) {
-          Audio.beep.play()
+          this.makeBeepSound(timerObject)
         }
         this.currentTimer = timerObject
       }
+    },
+    makeBeepSound (timerObject) {
+      const { s } = timerObject
+
+      if (s === 3) return Audio.beepOn3.play()
+      if (s === 2) return Audio.beepOn2.play()
+      if (s === 1) return Audio.beepOn1.play()
     },
     switchToNextTimer () {
       this.currentTimerIndex++
@@ -164,7 +171,7 @@ export default {
       }
     },
     startNextSet () {
-      Audio.endBlockWhistle.play()
+      Audio.endBlockSound.play()
       this.currentSetNumber++
       this.currentBlockIndex = 0
       this.currentTimerIndex = 0
@@ -188,7 +195,7 @@ export default {
       this.currentTimer = this.getCurrentTimerFromSequnece()
     },
     moveToNextBlock () {
-      Audio.endBlockWhistle.play()
+      Audio.endBlockSound.play()
       this.currentBlockIndex++
       this.currentTimerIndex = 0
       this.currentTimer = this.getCurrentTimerFromSequnece()
@@ -202,7 +209,7 @@ export default {
       return this.currentBlockIndex >= this.totalSequence.length - 1
     },
     finishAndResetSequence () {
-      Audio.endWhistle.play()
+      Audio.endSound.play()
       NoSleep.disable()
 
       this.setupTimer()
