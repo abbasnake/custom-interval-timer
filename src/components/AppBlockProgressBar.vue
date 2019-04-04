@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { returnBlockColorByIndex } from '../utils/helpers.js'
+
 export default {
   name: 'AppBlockProgressBar',
   props: {
@@ -26,25 +28,47 @@ export default {
     totalCircleCount: {
       type: Number,
       required: true
+    },
+    totalSequence: {
+      type: [Array, Boolean],
+      default: false
     }
   },
   methods: {
     renderCircleStyles (index) {
-      const sizeStyles = {
-        'width': `${52 - this.totalCircleCount * 3}px`,
-        'height': `${52 - this.totalCircleCount * 3}px`
+      return this.totalSequence ? this.renderBlockStyles(index) : this.renderTimerStyles(index)
+    },
+    renderBlockStyles (index) {
+      const color = returnBlockColorByIndex(this.totalSequence[index - 1].colorIndex)
+
+      if (index < this.currentCircleIndex) return this.returnStylesByTemplate('black')
+      if (index === this.currentCircleIndex) return this.returnStylesByTemplate(color, 5)
+
+      return this.returnStylesByTemplate(color)
+    },
+    renderTimerStyles (index) {
+      const color = 'rgba(0, 0, 0, .1)'
+
+      if (index < this.currentCircleIndex) return this.returnStylesByTemplate('black')
+      if (index === this.currentCircleIndex) return this.returnStylesByTemplate(color, 5)
+
+      return this.returnStylesByTemplate(color)
+    },
+    returnStylesByTemplate (backgroundColor, borderWidth = 1) {
+      const commonStyles = this.returnCommonStyles()
+
+      return {
+        ...commonStyles,
+        'background-color': backgroundColor,
+        'border-width': `${borderWidth}px`
       }
-
-      const styleTemplate = (color, opacity = 1) => ({
-        'background-color': color,
-        'opacity': opacity,
-        ...sizeStyles
-      })
-
-      if (index < this.currentCircleIndex) return styleTemplate('black')
-      if (index === this.currentCircleIndex) return styleTemplate('black', 0.4)
-
-      return sizeStyles
+    },
+    returnCommonStyles () {
+      return {
+        'width': `${52 - this.totalCircleCount * 3}px`,
+        'height': `${52 - this.totalCircleCount * 3}px`,
+        'border-width': '1px'
+      }
     }
   }
 }
@@ -59,9 +83,11 @@ export default {
   justify-content: center;
 
   &__circle {
-    border: 2px solid rgba(0, 0, 0, .4);
+    border-color: $black;
+    border-style: solid;
     border-radius: 50%;
     margin: 5px;
+    transition: all 300ms linear;
   }
 
   &__text {

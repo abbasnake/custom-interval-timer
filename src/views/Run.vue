@@ -11,6 +11,14 @@
         </span>
       </template>
     </div>
+    <div>Total Sequence Progress</div>
+    <AppBlockProgressBar
+      :currentCircleIndex="currentBlockIndex + 1"
+      :totalCircleCount="totalSequence.length"
+      :totalSequence="totalSequence"
+    />
+    <br>
+    <div>Current Block Progress</div>
     <AppBlockProgressBar
       :currentCircleIndex="currentBlockProgress"
       :totalCircleCount="returnCurrentBlockProgressLength()"
@@ -251,6 +259,7 @@ export default {
 
     &__char {
       font-size: 9rem;
+      text-shadow: -1px 0 $black, 0 1px $black, 1px 0 $black, 0 -1px $black;
       text-align: center;
       width: 25%;
 
