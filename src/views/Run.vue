@@ -11,14 +11,13 @@
         </span>
       </template>
     </div>
-    <div>Total Sequence Progress</div>
     <AppBlockProgressBar
       :currentCircleIndex="currentBlockIndex + 1"
       :totalCircleCount="totalSequence.length"
       :totalSequence="totalSequence"
+      :size="35"
+      title="PROGRESS"
     />
-    <br>
-    <div>Current Block Progress</div>
     <AppBlockProgressBar
       :currentCircleIndex="currentBlockProgress"
       :totalCircleCount="returnCurrentBlockProgressLength()"
@@ -249,6 +248,8 @@ export default {
 
   &__loopInfo {
     font-size: 40px;
+    text-shadow: -1px 0 $black, 0 1px $black, 1px 0 $black, 0 -1px $black;
+
   }
 
   &__timer {
@@ -259,8 +260,8 @@ export default {
 
     &__char {
       font-size: 9rem;
-      text-shadow: -1px 0 $black, 0 1px $black, 1px 0 $black, 0 -1px $black;
       text-align: center;
+      text-shadow: -1px 0 $black, 0 1px $black, 1px 0 $black, 0 -1px $black;
       width: 25%;
 
       &:nth-of-type(3) {

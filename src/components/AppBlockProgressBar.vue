@@ -1,16 +1,14 @@
 <template>
   <div class="ProgressBar">
-    <template v-if="totalCircleCount <= 10">
+    <div class="ProgressBar__title" v-if="title">{{ title }}</div>
+    <div class="ProgressBar__circleContainer" :style="renderCircleContainerStyles()">
       <template v-for="timerIndex in totalCircleCount">
         <span
-          class="ProgressBar__circle"
+          class="ProgressBar__circleContainer__circle"
           :style="renderCircleStyles(timerIndex)"
           :key="timerIndex"
         />
       </template>
-    </template>
-    <div v-else class="ProgressBar__text">
-      TIMER {{ currentCircleIndex }} OF {{ totalCircleCount }}
     </div>
   </div>
 </template>
@@ -20,6 +18,11 @@ import { returnBlockColorByIndex } from '../utils/helpers.js'
 
 export default {
   name: 'AppBlockProgressBar',
+  data () {
+    return {
+      circleSpace: 40
+    }
+  },
   props: {
     currentCircleIndex: {
       type: Number,
@@ -29,12 +32,23 @@ export default {
       type: Number,
       required: true
     },
+    title: {
+      type: [String, Boolean],
+      default: false
+    },
+    size: {
+      type: Number,
+      default: 30
+    },
     totalSequence: {
       type: [Array, Boolean],
       default: false
     }
   },
   methods: {
+    renderCircleContainerStyles () {
+      return { 'left': `calc(45% - ${(this.size + (this.circleSpace - this.size)) * (this.currentCircleIndex - 1)}px)` }
+    },
     renderCircleStyles (index) {
       return this.totalSequence ? this.renderBlockStyles(index) : this.renderTimerStyles(index)
     },
@@ -65,9 +79,10 @@ export default {
     },
     returnCommonStyles () {
       return {
-        'width': `${52 - this.totalCircleCount * 3}px`,
-        'height': `${52 - this.totalCircleCount * 3}px`,
-        'border-width': '1px'
+        'border-width': '1px',
+        'width': `${this.size}px`,
+        'height': `${this.size}px`,
+        'margin': `${(this.circleSpace - this.size) / 2}px`
       }
     }
   }
@@ -77,21 +92,29 @@ export default {
 <style lang="scss" scoped>
 @import '../scss/variables';
 
-.ProgressBar {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+$transition: all 300ms linear;
 
-  &__circle {
-    border-color: $black;
-    border-style: solid;
-    border-radius: 50%;
-    margin: 5px;
-    transition: all 300ms linear;
+.ProgressBar {
+  margin: 10px 0;
+  overflow: hidden;
+  width: 100%;
+
+  &__title {
+    font-size: 30px;
+    margin-bottom: 5px;
+    text-align: center;
   }
 
-  &__text {
-    font-size: 40px;
+  &__circleContainer {
+    display: inline-flex;
+    transition: $transition;
+
+    &__circle {
+      border-color: $black;
+      border-style: solid;
+      border-radius: 50%;
+      transition: $transition;
+    }
   }
 }
 
