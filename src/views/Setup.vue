@@ -11,14 +11,13 @@
       </template>
     </div>
     <footer class="SetupScreen__footer">
-      <div class="SetupScreen__footer__total">TOTAL: {{ stringifyTimer(totalTime) }}</div>
-      <AppButtonMain :title="mainButtonTitle" @onClick="runTimer"/>
+      <AppButtonMain @onClick="runTimer"/>
     </footer>
   </div>
 </template>
 
 <script>
-import { stringifyTimerObject, totalTimeExceedsZero } from '../utils/helpers'
+import { totalTimeExceedsZero } from '../utils/helpers'
 import NoSleep from '../utils/noSleep.js'
 import Audio from '../utils/audio.js'
 
@@ -45,9 +44,6 @@ export default {
     },
     isValidSetup () {
       return totalTimeExceedsZero(this.timerBlocks)
-    },
-    mainButtonTitle () {
-      return this.isValidSetup ? 'START' : 'SET TIME'
     }
   },
   methods: {
@@ -58,9 +54,6 @@ export default {
         NoSleep.enable()
         this.$router.push({ path: '/run' })
       }
-    },
-    stringifyTimer (timerObject) {
-      return stringifyTimerObject(timerObject)
     }
   }
 }
@@ -101,15 +94,10 @@ export default {
     background-image: linear-gradient(rgba(12, 18, 18, .4), $black, $black, $black);
     position: absolute;
     bottom: 0;
-    padding: 10px 0;
     width: 100%;
     max-width: 500px;
+    text-align: center;
     z-index: 3;
-
-    &__total {
-      font-size: 26px;
-      text-align: center;
-    }
   }
 }
 </style>
