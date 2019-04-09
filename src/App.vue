@@ -17,8 +17,15 @@
 
 @font-face {
   font-family: 'Saira Condensed';
+  src: url('./assets/fonts/SairaCondensed-SemiBold.ttf');
+  font-style: normal;
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Saira Condensed';
   src: url('./assets/fonts/SairaCondensed-Bold.ttf');
-  font-style: bold;
+  font-style: normal;
   font-weight: 700;
 }
 
