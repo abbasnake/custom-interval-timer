@@ -1,6 +1,6 @@
 const audio = () => {
   const whistle = new Audio(require('../assets/whistle.mp3'))
-  const endBlockSound = new Audio(require('../assets/whistle2x.mp3'))
+  const endBlockSound = new Audio(require('../assets/whistle4x.mp3'))
   const endSound = new Audio(require('../assets/gong.mp3'))
   const beepOn3 = new Audio(require('../assets/beepSemitoneUp.mp3'))
   const beepOn2 = new Audio(require('../assets/beep.mp3'))
