@@ -100,7 +100,7 @@ export default {
 
 .Svg {
   opacity: .6;
-  padding: 5px;
+  padding: 8px;
 
   &:hover {
     cursor: pointer;
