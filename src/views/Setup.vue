@@ -94,6 +94,7 @@ export default {
     background-image: linear-gradient(rgba(12, 18, 18, .4), $black, $black, $black);
     position: absolute;
     bottom: 0;
+    padding-bottom: 5px;
     width: 100%;
     max-width: 500px;
     text-align: center;
