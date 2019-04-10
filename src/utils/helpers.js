@@ -86,6 +86,21 @@ const decrementTimerObject = timerObject => {
   return clone
 }
 
+const decrementTimerObjectBySeconds = (timerObject, seconds) => {
+  const clone = cloneObject(timerObject)
+
+  clone.s -= seconds
+
+  if (clone.s < 0) {
+    if (clone.m <= 0) return { m: 0, s: 0 }
+
+    clone.m -= 1
+    clone.s = 60 + clone.s
+  }
+
+  return clone
+}
+
 const incrementTimerObject = timerObject => {
   const clone = cloneObject(timerObject)
 
@@ -97,6 +112,14 @@ const incrementTimerObject = timerObject => {
   }
 
   return clone
+}
+
+const incrementTimerObjectBySeconds = (timerObject, seconds) => {
+  const clone = cloneObject(timerObject)
+
+  clone.s += seconds
+
+  return convertExtraSecondsToMinutes(clone)
 }
 
 const timerIsFinished = timerObject => timerObject.m === 0 && timerObject.s === 0
@@ -116,5 +139,7 @@ export {
   blockColorArrayLength,
   returnTotalTimerCount,
   removeZeroTimeTimers,
-  totalTimeExceedsZero
+  totalTimeExceedsZero,
+  incrementTimerObjectBySeconds,
+  decrementTimerObjectBySeconds
 }

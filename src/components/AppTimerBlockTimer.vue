@@ -39,7 +39,9 @@
 import {
   stringifyTimerObject,
   incrementTimerObject,
+  incrementTimerObjectBySeconds,
   decrementTimerObject,
+  decrementTimerObjectBySeconds,
   timerIsFinished,
   returnBlockColorByIndex
 } from '../utils/helpers'
@@ -80,19 +82,32 @@ export default {
       let timerObject = decrementTimerObject(timer)
       this.updateBlockTimer(timerIndex, timerObject)
 
+      let loopCounter = 0
+
       this.updateTimerLoop = WorkerTimers.setInterval(() => {
-        timerObject = decrementTimerObject(timerObject)
+        const timerDecrement = this.timerSecondIncrement(loopCounter)
+
+        timerObject = decrementTimerObjectBySeconds(timerObject, timerDecrement)
         this.updateBlockTimer(timerIndex, timerObject)
+        loopCounter++
       }, this.loopSpeed)
     },
     incrementTimer (timerIndex, timer) {
       let timerObject = incrementTimerObject(timer)
       this.updateBlockTimer(timerIndex, timerObject)
 
+      let loopCounter = 0
+
       this.updateTimerLoop = WorkerTimers.setInterval(() => {
-        timerObject = incrementTimerObject(timerObject)
+        const timerIncrement = this.timerSecondIncrement(loopCounter)
+
+        timerObject = incrementTimerObjectBySeconds(timerObject, timerIncrement)
         this.updateBlockTimer(timerIndex, timerObject)
+        loopCounter++
       }, this.loopSpeed)
+    },
+    timerSecondIncrement (counter) {
+      return counter / 25 < 4 ? Math.ceil(counter / 25) : Math.ceil(counter / 5)
     },
     updateBlockTimer (timerIndex, timerObject) {
       this.$store.commit('updateBlockTimer', { blockIndex: this.blockIndex, timerIndex, timerObject })
@@ -126,7 +141,6 @@ export default {
 
   &__time {
     display: flex;
-    // height: 65px;
     justify-content: center;
     margin: 0 10px;
     width: 130px;
