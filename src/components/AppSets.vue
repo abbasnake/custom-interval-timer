@@ -82,7 +82,7 @@ export default {
   padding: 10px 0;
 
   &__arrow {
-    flex: 10;
+    flex: 1.5;
 
     &__left {
       text-align: right;
@@ -94,7 +94,7 @@ export default {
   }
 
   &__sets {
-    flex: 30px;
+    flex: 0.8;
     font-size: 40px;
     text-align: center;
   }
@@ -102,7 +102,7 @@ export default {
   &__svg {
     align-self: center;
     fill: white;
-    flex: auto;
+    flex: 1;
     height: 30px;
   }
 }

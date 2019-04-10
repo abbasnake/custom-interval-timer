@@ -95,7 +95,6 @@ export default {
 $transition: all 300ms linear;
 
 .ProgressBar {
-  margin: 10px 0;
   overflow: hidden;
   width: 100%;
 
